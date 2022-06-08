@@ -23,7 +23,6 @@ spring:
       test-while-idle: true
       test-on-borrow: false
       test-on-return: false
-
   redis:
     database: 0
     host: localhost
@@ -44,16 +43,17 @@ spring:
       authentication-database: admin
       username: admin
       password: abc123456
+
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: com.makiyo.pojo
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
 
 logging:
   level:
     root: info
-    com.makiyo.dao : warn
+    com.makiyo.dao: warn
   pattern:
     console: "%d{HH:mm:ss}  %-5level  %msg%n"
