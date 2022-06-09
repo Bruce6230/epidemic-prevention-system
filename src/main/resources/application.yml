@@ -57,3 +57,9 @@ logging:
     com.makiyo.dao: warn
   pattern:
     console: "%d{HH:mm:ss}  %-5level  %msg%n"
+
+eps:
+  jwt:
+    secret: lin171820 #密钥
+    expire: 5 #过期时间
+    cache-expire: 10 #缓存过期时间
