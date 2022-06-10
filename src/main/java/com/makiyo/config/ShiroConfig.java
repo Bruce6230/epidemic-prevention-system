@@ -1,11 +1,11 @@
 package com.makiyo.config;
 
 import com.makiyo.filter.OAuthFilter;
-import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,7 +20,7 @@ public class ShiroConfig {
     @Bean("securityManager")
     public SecurityManager securityManager(OAuthRealm realm)
     {
-        DefaultSecurityManager securityManager = new DefaultSecurityManager();
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(realm);
         securityManager.setRememberMeManager(null);
         return securityManager;
@@ -49,7 +49,7 @@ public class ShiroConfig {
         filterMap.put("/user/register", "anon");
         filterMap.put("/user/login", "anon");
         filterMap.put("/test/**", "anon");
-        filterMap.put("/**", "oauth2");
+        filterMap.put("/**", "oauth");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 
         return shiroFilter;

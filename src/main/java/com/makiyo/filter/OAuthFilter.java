@@ -32,7 +32,7 @@ public class OAuthFilter extends AuthenticatingFilter {
     @Autowired
     private ThreadLocalToken threadLocalToken;
 
-    @Value("{eps.jwt.cache-expire}")
+    @Value("${eps.jwt.cache-expire}")
     private int cacheExpire;
 
     @Autowired
