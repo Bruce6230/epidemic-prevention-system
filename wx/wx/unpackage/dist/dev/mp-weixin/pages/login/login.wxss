@@ -1,0 +1,51 @@
+.logo {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 30%;
+}
+.logo-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 8%;
+  color: mediumpurple;
+}
+.logo-subtitle {
+  font-size: 35rpx;
+  text-align: center;
+  color: darkblue;
+  margin-top: 20rpx;
+}
+.sublogo {
+  width: 35%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 50%;
+}
+.login-button {
+  width: 60%;
+  position: absolute;
+  bottom: 20%;
+  left: 20%;
+  background-color: dodgerblue;
+  color: azure;
+  box-sizing: border-box;
+}
+.login-button:active {
+  background-color: cornflowerblue;
+}
+.register-text {
+  position: absolute;
+  bottom: 80rpx;
+  width: 100%;
+  text-align: center;
+  font-size: 30rpx;
+  color: #333;
+}
+.register-text .register {
+  color: dodgerblue;
+}
+
