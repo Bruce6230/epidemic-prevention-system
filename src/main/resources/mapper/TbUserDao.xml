@@ -20,11 +20,11 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, username, `password`, open_id, nickname, photo, `name`, sex, tel, email, hiredate, 
+    id, username, `password`, open_id, nickname, photo, `name`, sex, tel, email, hiredate,
     `role`, root, dept_id, `status`, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from tb_user
     where id = #{id,jdbcType=INTEGER}
@@ -33,18 +33,6 @@
     delete from tb_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.makiyo.pojo.TbUser" useGeneratedKeys="true">
-    insert into tb_user (username, `password`, open_id, 
-      nickname, photo, `name`, 
-      sex, tel, email, hiredate, 
-      `role`, root, dept_id, `status`, 
-      create_time)
-    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, 
-      #{nickname,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=OTHER}, #{tel,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{hiredate,jdbcType=DATE}, 
-      #{role,jdbcType=OTHER}, #{root,jdbcType=BOOLEAN}, #{deptId,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, 
-      #{createTime,jdbcType=TIMESTAMP})
-  </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.makiyo.pojo.TbUser" useGeneratedKeys="true">
     insert into tb_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -212,4 +200,45 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="haveRootUser" resultType="boolean">
+    select if(count(*),true,false ) from tb_user where root = 1;
+  </select>
+  <insert id="insert" parameterType="HashMap">
+    INSERT INTO tb_user
+    SET
+    <if test="openId!=null">
+      open_id = #{openId},
+    </if>
+    <if test="nickname!=null">
+      nickname = #{nickname},
+    </if>
+    <if test="photo!=null">
+      photo = #{photo},
+    </if>
+    <if test="name!=null">
+      name = #{name},
+    </if>
+    <if test="sex!=null">
+      sex = #{sex},
+    </if>
+    <if test="tel!=null">
+      tel = #{tel},
+    </if>
+    <if test="email!=null">
+      email=#{email},
+    </if>
+    <if test="hiredate!=null">
+      hiredate = #{hiredate},
+    </if>
+    role = #{role},
+    root = #{root},
+    <if test="deptName!=null">
+      dept_id = ( SELECT id FROM tb_dept WHERE dept_name = #{deptName} ),
+    </if>
+    status = #{status},
+    create_time = #{createTime}
+  </insert>
+  <select id="searchIdByOpenId" parameterType="String" resultType="Integer">
+    SELECT id FROM tb_user WHERE open_id=#{openId} AND status = 1
+  </select>
 </mapper>

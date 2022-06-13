@@ -3,11 +3,13 @@ package com.makiyo.dao;
 import com.makiyo.pojo.TbUser;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
+
 @Mapper
 public interface TbUserDao {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(TbUser record);
+    public int insert(HashMap param);
 
     int insertSelective(TbUser record);
 
@@ -16,4 +18,8 @@ public interface TbUserDao {
     int updateByPrimaryKeySelective(TbUser record);
 
     int updateByPrimaryKey(TbUser record);
+
+    public boolean haveRootUser();
+
+    public Integer searchIdByOpenId(String openId);
 }
