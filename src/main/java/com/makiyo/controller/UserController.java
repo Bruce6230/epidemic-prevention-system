@@ -1,5 +1,7 @@
 package com.makiyo.controller;
 
+import cn.hutool.core.util.StrUtil;
+import com.makiyo.form.LoginForm;
 import com.makiyo.form.RegisterForm;
 import com.makiyo.service.UserService;
 import com.makiyo.utils.JwtUtil;
@@ -48,7 +50,21 @@ public class UserController {
         return Response.ok("用户注册成功").put("token",token).put("permission",permsSet);
     }
 
-    private void saveCacheToken(String token,int userId){
-        redisTemplate.opsForValue().set(token,userId+"",cacheExpire, TimeUnit.DAYS);
+    @PostMapping("/login")
+    @ApiOperation("登录系统")
+    public Response login(@Valid @RequestBody LoginForm form)
+    {
+        int id = userService.login(form.getCode());
+        String token = jwtUtil.createToken(id);
+        saveCacheToken(token,id);
+        Set<String> permSet = userService.searchUserPermissions(id);
+        return Response.ok("登录成功").put("token",token).put("permission",permSet);
+    }
+
+    {
+
+    }
+    private void saveCacheToken(String token,int userId) {
+        redisTemplate.opsForValue().set(token, userId + "", cacheExpire, TimeUnit.DAYS);
     }
 }
