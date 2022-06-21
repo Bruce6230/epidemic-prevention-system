@@ -23,7 +23,8 @@ export function createApp() {
 let BaseUrl = "http://localhost:8080/epidemic-prevention-system"
 
 Vue.prototype.url={
-	register:BaseUrl+"/user/register"
+	register: BaseUrl+"/user/register",
+	login: BaseUrl+"/user/login"
 }
 
 Vue.prototype.ajax=function(url , method, data, fun){

@@ -32,7 +32,8 @@ createApp(app).$mount();
 var BaseUrl = "http://localhost:8080/epidemic-prevention-system";
 
 _vue.default.prototype.url = {
-  register: BaseUrl + "/user/register" };
+  register: BaseUrl + "/user/register",
+  login: BaseUrl + "/user/login" };
 
 
 _vue.default.prototype.ajax = function (url, method, data, fun) {
