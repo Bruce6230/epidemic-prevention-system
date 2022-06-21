@@ -4,6 +4,7 @@ import com.makiyo.pojo.TbUser;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
+import java.util.Set;
 
 @Mapper
 public interface TbUserDao {
@@ -22,4 +23,6 @@ public interface TbUserDao {
     public boolean haveRootUser();
 
     public Integer searchIdByOpenId(String openId);
+
+    public Set<String> searchUserPermissions(int userId);
 }

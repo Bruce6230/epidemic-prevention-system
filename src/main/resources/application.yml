@@ -63,3 +63,7 @@ eps:
     secret: lin171820 #密钥
     expire: 5 #过期时间
     cache-expire: 10 #缓存过期时间
+
+wx:
+  app-id: wx790a007e30c8a49c
+  app-secret: 8e1bcae8c6cd023577136a7e56ccf1df
