@@ -25,4 +25,5 @@ public interface TbUserDao {
     public Integer searchIdByOpenId(String openId);
 
     public Set<String> searchUserPermissions(int userId);
+
 }
