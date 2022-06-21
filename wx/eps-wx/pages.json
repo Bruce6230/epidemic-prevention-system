@@ -4,7 +4,7 @@
 			    "path" : "pages/login/login",
 			    "style" :                                                                                    
 			    {
-			        "navigationBarTitleText": "",
+			        "navigationBarTitleText": "EPS简疫办公",
 			        "enablePullDownRefresh": false
 			    }
 			    
@@ -12,7 +12,7 @@
 			{
 				"path": "pages/index/index",
 				"style": {
-					"navigationBarTitleText": "uni-app"
+					"navigationBarTitleText": "首页"
 				}
 			}
 		    
@@ -20,16 +20,16 @@
 	            "path" : "pages/register/register",
 	            "style" :                                                                                    
 	            {
-	                "navigationBarTitleText": "",
+	                "navigationBarTitleText": "用户注册",
 	                "enablePullDownRefresh": false
 	            }
 	            
 	        }
 	    ],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "EPS简疫办公",
+		"navigationBarBackgroundColor": "#3473FF",
+		"backgroundColor": "#EEEEF4"
 	}
 }

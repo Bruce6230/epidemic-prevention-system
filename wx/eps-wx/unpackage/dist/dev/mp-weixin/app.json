@@ -6,10 +6,10 @@
   ],
   "subPackages": [],
   "window": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "EPS简疫办公",
+    "navigationBarBackgroundColor": "#3473FF",
+    "backgroundColor": "#EEEEF4"
   },
   "usingComponents": {}
 }

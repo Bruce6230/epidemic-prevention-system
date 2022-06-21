@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<image src="../../static/logo-1.png" class="logo" mode="widthFix"></image>
-		<view class="logo-title">Eps简疫办公系统</view>
+		<view class="logo-title">EPS简疫办公系统</view>
 		<view class="logo-subtitle">Version 1.0</view>
 		<button class="login-button" open-type="getUserInfo" @tap="login()">登陆系统</button>
 		<view class="register-container">
