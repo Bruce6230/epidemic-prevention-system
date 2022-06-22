@@ -25,11 +25,82 @@
 	            }
 	            
 	        }
-	    ],
+	        ,{
+            "path" : "pages/contacts/contacts",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/meeting/meeting",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/document/document",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/mine",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "EPS简疫办公",
 		"navigationBarBackgroundColor": "#3473FF",
 		"backgroundColor": "#EEEEF4"
-	}
+	},
+	"tabBar": {
+			"color": "#666",
+			"selectedColor": "#3474FF",
+			"list": [{
+					"text": "首页",
+					"pagePath": "pages/index/index",
+					"iconPath": "static/bar-1.png",
+					"selectedIconPath": "static/bar-1-active.png"
+				},
+				{
+					"text": "会议",
+					"pagePath": "pages/meeting/meeting",
+					"iconPath": "static/bar-2.png",
+					"selectedIconPath": "static/bar-2-active.png"
+				},
+				{
+					"text": "文档",
+					"pagePath": "pages/document/document",
+					"iconPath": "static/bar-3.png",
+					"selectedIconPath": "static/bar-3-active.png"
+				},
+				{
+					"text": "通讯录",
+					"pagePath": "pages/contacts/contacts",
+					"iconPath": "static/bar-4.png",
+					"selectedIconPath": "static/bar-4-active.png"
+				},
+				{
+					"text": "我的",
+					"pagePath": "pages/mine/mine",
+					"iconPath": "static/bar-5.png",
+					"selectedIconPath": "static/bar-5-active.png"
+				}
+			]
+		}
 }
