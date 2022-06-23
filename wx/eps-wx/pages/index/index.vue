@@ -105,7 +105,12 @@
 
 		},
 		methods: {
-
+			toPage:function(name,url){
+				//验证用户权限
+				uni.navigateTo({
+					url:url
+				})
+			}
 		}
 	}
 </script>
