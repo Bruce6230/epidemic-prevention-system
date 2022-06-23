@@ -84,4 +84,7 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllParam" resultType="com.makiyo.pojo.SysConfig">
+    SELECT param_key,param_value FROM sys_config where status = 1;
+  </select>
 </mapper>

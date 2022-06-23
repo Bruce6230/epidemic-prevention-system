@@ -3,6 +3,8 @@ package com.makiyo.dao;
 import com.makiyo.pojo.SysConfig;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface SysConfigDao {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +18,6 @@ public interface SysConfigDao {
     int updateByPrimaryKeySelective(SysConfig record);
 
     int updateByPrimaryKey(SysConfig record);
+
+    public List<SysConfig> selectAllParam();
 }
