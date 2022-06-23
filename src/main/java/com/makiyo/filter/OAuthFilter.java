@@ -94,7 +94,7 @@ public class OAuthFilter extends AuthenticatingFilter {
                 resp.getWriter().print("令牌已过期");
                 return false;
             }
-        }catch (JWTDecodeException e){
+        }catch (Exception e){
             resp.setStatus(HttpStatus.SC_UNAUTHORIZED);
             resp.getWriter().print("无效的令牌");
             return false;
