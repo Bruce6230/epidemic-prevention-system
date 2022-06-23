@@ -34,12 +34,11 @@ public class OAuthRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        TbUser user = (TbUser) principalCollection.getPrimaryPrincipal();
-        int userId = user.getId();
-        Set<String> permissionsSet = userService.searchUserPermissions(userId);
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(permissionsSet);
-        //TODO查询用户权限列表
-        //TODO把权限列表添加到info对象
+        TbUser user= (TbUser) principalCollection.getPrimaryPrincipal();
+        int userId=user.getId();
+        Set<String> permsSet=userService.searchUserPermissions(userId);
+        SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
+        info.setStringPermissions(permsSet);
         return info;
     }
 
@@ -51,15 +50,14 @@ public class OAuthRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        String accessToken = (String) token.getPrincipal();
-        int userId = jwtUtil.getUserId(accessToken);
-        TbUser user = userService.searchById(userId);
-//        如果用户离职，根据状态返回user信息为null
-        if(user==null)
-        {
-            throw new LockedAccountException("账号已被锁定，请联系管理员");
+        String accessToken=(String)token.getPrincipal();
+        int userId=jwtUtil.getUserId(accessToken);
+        TbUser user=userService.searchById(userId);
+
+        if(user==null){
+            throw new LockedAccountException("账号已被锁定,请联系管理员");
         }
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user,accessToken,getName());
+        SimpleAuthenticationInfo info=new SimpleAuthenticationInfo(user,accessToken,getName());
         return info;
     }
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RequestMapping("/checkin")
 @RestController
-@Api("签到模块web接口")
+@Api("签到模块Web接口")
 @Slf4j
 public class CheckinController {
     @Autowired
@@ -30,9 +30,9 @@ public class CheckinController {
 
     @GetMapping("/validCanCheckIn")
     @ApiOperation("查看用户今天是否可以签到")
-    public Response validCanCheckin(@RequestHeader("token") String token){
-        int userId = jwtUtil.getUserId(token);
-        String result = checkinService.validCanCheckIn(userId, DateUtil.today());
+    public Response validCanCheckIn(@RequestHeader("token") String token){
+        int userId=jwtUtil.getUserId(token);
+        String result=checkinService.validCanCheckIn(userId, DateUtil.today());
         return Response.ok(result);
     }
 }

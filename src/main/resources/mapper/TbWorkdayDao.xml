@@ -49,7 +49,7 @@
     set `date` = #{date,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="searchTodayIsWorkday" resultType="integer">
-    select id from tb_workday where date = current_date limit 1;
+  <select id="searchTodayIsWorkday" resultType="Integer">
+    SELECT id FROM tb_workday WHERE date = CURRENT_DATE LIMIT 1;
   </select>
 </mapper>

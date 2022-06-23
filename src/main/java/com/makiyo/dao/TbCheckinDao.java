@@ -19,5 +19,5 @@ public interface TbCheckinDao {
 
     int updateByPrimaryKey(TbCheckin record);
 
-    public Integer havaCheckin(HashMap param);
+    public Integer haveCheckin(HashMap param);
 }

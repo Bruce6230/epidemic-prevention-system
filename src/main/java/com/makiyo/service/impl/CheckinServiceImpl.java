@@ -39,41 +39,39 @@ public class CheckinServiceImpl implements CheckinService {
 
     @Override
     public String validCanCheckIn(int userId, String date) {
-        boolean holiday = tbHolidaysDao.searchTodayIsHolidays()!=null?true:false;
-        boolean workday = tbWorkdayDao.searchTodayIsWorkday()!=null?true:false;
+        boolean bool_1 = tbHolidaysDao.searchTodayIsHolidays() != null ? true : false;
+        boolean bool_2 = tbWorkdayDao.searchTodayIsWorkday() != null ? true : false;
         String type = "工作日";
-        if(DateUtil.date().isWeekend())
-        {
-            type="节假日";
+        if (DateUtil.date().isWeekend()) {
+            type = "节假日";
         }
-        if(holiday){
-            type="节假日";
-        }else if(workday){
-            type="工作日";
+        if (bool_1) {
+            type = "节假日";
+        } else if (bool_2) {
+            type = "工作日";
         }
 
-        if(type.equals("节假日"))
-        {
-            return "节假日无需考勤";
-        }else{
-            DateTime nowTime = DateUtil.date();
-            String startTime = DateUtil.today()+" "+systemConstants.attendanceStartTime;
-            String endTime = DateUtil.today()+" "+systemConstants.attendanceEndTime;
-            DateTime attendanceStart = DateUtil.parse(startTime);
-            DateTime attendanceEnd = DateUtil.parse(endTime);
-            if(nowTime.before(attendanceStart))
-            {
-                return "未到考勤时间";
-            }else if(nowTime.after(attendanceEnd)){
-                return "超过考勤时间";
-            }else{
-                HashMap map = new HashMap();
+        if (type.equals("节假日")) {
+            return "节假日不需要考勤";
+        } else {
+            DateTime now = DateUtil.date();
+            String start = DateUtil.today() + " " + systemConstants.attendanceStartTime;
+            String end = DateUtil.today() + " " + systemConstants.attendanceEndTime;
+            DateTime attendanceStart = DateUtil.parse(start);
+            DateTime attendanceEnd = DateUtil.parse(end);
+            if(now.isBefore(attendanceStart)){
+                return "没到上班考勤开始时间";
+            }
+            else if(now.isAfter(attendanceEnd)){
+                return "超过了上班考勤结束时间";
+            }else {
+                HashMap map=new HashMap();
                 map.put("userId",userId);
                 map.put("date",date);
-                map.put("start",startTime);
-                map.put("end",endTime);
-                boolean repeat = tbCheckinDao.havaCheckin(map)!=null?true:false;
-                return repeat?"今日已经考勤，无需重复考勤":"可以考勤";
+                map.put("start",start);
+                map.put("end",end);
+                boolean bool=tbCheckinDao.haveCheckin(map)!=null?true:false;
+                return bool?"今日已经考勤，不用重复考勤" : "可以考勤";
             }
         }
     }
