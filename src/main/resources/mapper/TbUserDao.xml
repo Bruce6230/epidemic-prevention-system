@@ -248,4 +248,7 @@
            JOIN tb_permission p ON JSON_CONTAINS(r.permissions, CAST(p.id AS CHAR))
     WHERE u.id=#{userId} AND u.status=1;
   </select>
+  <select id="searchById" parameterType="int" resultType="com.makiyo.pojo.TbUser">
+    select id,open_id,nickname,photo,name,sex,tel,role,root,dept_id,status,creat_time from tb_user where id=#{userId} and status = 1;
+  </select>
 </mapper>

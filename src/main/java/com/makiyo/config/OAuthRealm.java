@@ -1,10 +1,9 @@
 package com.makiyo.config;
 
+import com.makiyo.pojo.TbUser;
+import com.makiyo.service.UserService;
 import com.makiyo.utils.JwtUtil;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -17,6 +16,9 @@ public class OAuthRealm extends AuthorizingRealm {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -37,16 +39,22 @@ public class OAuthRealm extends AuthorizingRealm {
     }
 
     /**
-     * 认证（登录时调用）
-     * @param authenticationToken
+     * 认证（验证登录时调用）
+     * @param token
      * @return
      * @throws AuthenticationException
      */
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        //TODO 从令牌中获取userId,然后检测该账户是否被冻结
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo();
-        //TODO 往info对象中添加用户信息,Token字符串
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        String accessToken = (String) token.getPrincipal();
+        int userId = jwtUtil.getUserId(accessToken);
+        TbUser user = userService.searchById(userId);
+//        如果用户离职，根据状态返回user信息为null
+        if(user==null)
+        {
+            throw new LockedAccountException("账号已被锁定，请联系管理员");
+        }
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user,accessToken,getName());
         return info;
     }
 }

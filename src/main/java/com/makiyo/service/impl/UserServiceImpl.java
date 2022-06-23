@@ -95,4 +95,10 @@ public class UserServiceImpl implements UserService {
         }
         return id;
     }
+
+    @Override
+    public TbUser searchById(int userId) {
+        TbUser user = userDao.searchById(userId);
+        return user;
+    }
 }

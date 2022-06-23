@@ -26,4 +26,6 @@ public interface TbUserDao {
 
     public Set<String> searchUserPermissions(int userId);
 
+    public TbUser searchById(int userId);
+
 }
