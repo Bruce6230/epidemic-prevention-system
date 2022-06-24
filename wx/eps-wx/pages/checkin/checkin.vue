@@ -14,6 +14,8 @@
 </template>
 
 <script>
+	var TxMapWx=require('../../lib/qqmap-wx-jssdk.min.js');
+	var txmapsdk;
 	export default {
 		data() {
 			return {
@@ -23,6 +25,11 @@
 				showCamera: true,
 				showImage: false
 			}
+		},
+		onLoad:function(){
+			txmapsdk = new TxMapWx({
+				key:"OMSBZ-OVURD-YCN4O-HB6FZ-O6P66-JIFBR"
+			})
 		},
 		methods: {
 			clickButton:function()
@@ -43,6 +50,37 @@
 					})
 				}else{
 					//执行签到功能
+					uni.showLoading({
+						title:"签到中请稍后"
+					})
+					setTimeout(function(){
+						uni.hideLoading()
+					},30000)
+					
+					uni.getLocation({
+						type:"wgs84",
+						success:function(response){
+							let latitude=response.latitude
+							let longitude=response.longitude
+							// console.log(latitude)
+							// console.log(longitude)
+							txmapsdk.reverseGeocoder({
+								location:{
+									latitude:latitude,
+									longitude:longitude
+								},
+								success:function(response){
+									console.log(response.result)
+									let address=response.result.address
+									let addressComponent=response.result.address_component
+									let nation = addressComponent.nation;
+									let province = addressComponent.province;
+									let city = addressComponent.city;
+									let district = addressComponent.district;
+								}
+							})
+						}
+					})
 					
 				}
 			},

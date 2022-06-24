@@ -16,6 +16,19 @@
             "autoclose" : true,
             "delay" : 0
         },
+        // //微信小程序定位
+        // "mp-weixin" : {
+        //         "appid" : "wx790a007e30c8a49c",
+        //         "setting" : {
+        //             "urlCheck" : true,
+        //             "es6" : true
+        //         },
+        // 		"permission": {
+        // 		    "scope.userLocation": {
+        // 		      "desc": "你的位置信息将用于小程序位置接口的效果展示" 
+        // 		    }
+        // 		  }
+        //     },
         /* 模块配置 */
         "modules" : {},
         /* 应用发布信息 */
@@ -54,7 +67,12 @@
         "setting" : {
             "urlCheck" : false
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+		"permission" : {
+			    "scope.userLocation": {
+			    "desc": "请先选择景点，我们将为您提供精准查找"
+			}
+		}
     },
     "mp-alipay" : {
         "usingComponents" : true

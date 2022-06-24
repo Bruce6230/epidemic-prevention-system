@@ -145,7 +145,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var _default =
+
+var TxMapWx = __webpack_require__(/*! ../../lib/qqmap-wx-jssdk.min.js */ 84);
+var txmapsdk;var _default =
 {
   data: function data() {
     return {
@@ -154,6 +156,11 @@ var _default =
       buttonText: '拍照',
       showCamera: true,
       showImage: false };
+
+  },
+  onLoad: function onLoad() {
+    txmapsdk = new TxMapWx({
+      key: "OMSBZ-OVURD-YCN4O-HB6FZ-O6P66-JIFBR" });
 
   },
   methods: {
@@ -175,6 +182,37 @@ var _default =
 
       } else {
         //执行签到功能
+        uni.showLoading({
+          title: "签到中请稍后" });
+
+        setTimeout(function () {
+          uni.hideLoading();
+        }, 30000);
+
+        uni.getLocation({
+          type: "wgs84",
+          success: function success(response) {
+            var latitude = response.latitude;
+            var longitude = response.longitude;
+            // console.log(latitude)
+            // console.log(longitude)
+            txmapsdk.reverseGeocoder({
+              location: {
+                latitude: latitude,
+                longitude: longitude },
+
+              success: function success(response) {
+                console.log(response.result);
+                var address = response.result.address;
+                var addressComponent = response.result.address_component;
+                var nation = addressComponent.nation;
+                var province = addressComponent.province;
+                var city = addressComponent.city;
+                var district = addressComponent.district;
+              } });
+
+          } });
+
 
       }
     },

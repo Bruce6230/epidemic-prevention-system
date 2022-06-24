@@ -10,27 +10,22 @@
   "libVersion": "",
   "appid": "wx790a007e30c8a49c",
   "projectname": "eps-wx",
-  "simulatorType": "wechat",
-  "simulatorPluginLibVersion": {},
   "condition": {
     "search": {
+      "current": -1,
       "list": []
     },
     "conversation": {
+      "current": -1,
       "list": []
     },
     "game": {
+      "current": -1,
       "list": []
     },
     "miniprogram": {
-      "list": [
-        {
-          "id": 0,
-          "name": "pages/checkin/checkin",
-          "pathName": "pages/checkin/checkin",
-          "query": ""
-        }
-      ]
+      "current": -1,
+      "list": []
     }
   }
 }

@@ -20,7 +20,7 @@ export function createApp() {
 }
 // #endif
 
-let BaseUrl = "http://localhost:8080/epidemic-prevention-system"
+let BaseUrl = "http://192.168.1.104:8080/epidemic-prevention-system"
 
 Vue.prototype.url={
 	register: BaseUrl+"/user/register",
