@@ -19,10 +19,6 @@
     delete from tb_face_model
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.makiyo.pojo.TbFaceModel" useGeneratedKeys="true">
-    insert into tb_face_model (user_id, face_model)
-    values (#{userId,jdbcType=INTEGER}, #{faceModel,jdbcType=VARCHAR})
-  </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.makiyo.pojo.TbFaceModel" useGeneratedKeys="true">
     insert into tb_face_model
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -60,4 +56,14 @@
       face_model = #{faceModel,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="searchFaceModel" parameterType="int" resultType="string">
+    select face_model from tb_face_model
+    where user_id=#{userId};
+  </select>
+  <insert id="insert" parameterType="com.makiyo.pojo.TbFaceModel">
+    insert into tb_face_model set user_id = #{userId},face_model = #{faceModel}
+  </insert>
+  <delete id="deleteFaceModel" parameterType="int">
+    delete from tb_face_model where user_id = #{userId}
+  </delete>
 </mapper>

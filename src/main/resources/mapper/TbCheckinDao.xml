@@ -28,15 +28,30 @@
     delete from tb_checkin
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.makiyo.pojo.TbCheckin" useGeneratedKeys="true">
-    insert into tb_checkin (user_id, address, country, 
-      province, city, district, 
-      `status`, risk, `date`, create_time
-      )
-    values (#{userId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, 
-      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{risk,jdbcType=INTEGER}, #{date,jdbcType=DATE}, #{createTime,jdbcType=TIMESTAMP}
-      )
+  <insert id="insert" parameterType="com.makiyo.pojo.TbCheckin">
+    INSERT INTO tb_checkin
+    SET user_id=#{userId},
+    <if test="address!=null">
+      address=#{address},
+    </if>
+    <if test="country!=null">
+      country=#{country},
+    </if>
+    <if test="province!=null">
+      province=#{province},
+    </if>
+    <if test="city!=null">
+      city=#{city},
+    </if>
+    <if test="district!=null">
+      district=#{district},
+    </if>
+    status=#{status},
+    <if test="risk!=null">
+      risk=#{risk},
+    </if>
+    date=#{date},
+    create_time=#{createTime}
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.makiyo.pojo.TbCheckin" useGeneratedKeys="true">
     insert into tb_checkin
