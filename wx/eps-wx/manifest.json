@@ -68,11 +68,11 @@
             "urlCheck" : false
         },
         "usingComponents" : true,
-		"permission" : {
-			    "scope.userLocation": {
-			    "desc": "请先选择景点，我们将为您提供精准查找"
-			}
-		}
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "请先选择景点，我们将为您提供精准查找"
+            }
+        }
     },
     "mp-alipay" : {
         "usingComponents" : true

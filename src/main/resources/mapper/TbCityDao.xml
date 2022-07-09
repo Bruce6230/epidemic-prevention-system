@@ -60,4 +60,9 @@
       code = #{code,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="searchCode" parameterType="String" resultType="String">
+    select code
+    from tb_city
+    where city=#{city}
+  </select>
 </mapper>

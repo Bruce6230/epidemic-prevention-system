@@ -16,4 +16,6 @@ public interface TbCityDao {
     int updateByPrimaryKeySelective(TbCity record);
 
     int updateByPrimaryKey(TbCity record);
+
+    public String searchCode(String city);
 }

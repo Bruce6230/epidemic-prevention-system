@@ -63,7 +63,13 @@ eps:
     secret: lin171820 #密钥
     expire: 5 #过期时间
     cache-expire: 10 #缓存过期时间
+  face:
+    createFaceModelUrl: http://192.168.1.88:3000/create_face_model
+    checkinUrl: http://192.168.1.88:3000/checkin
+  email:
+    system: lin171820@gmail.com
+    hr: lin171820@gmail.com
 
 wx:
   app-id: wx790a007e30c8a49c
-  app-secret: 8e1bcae8c6cd023577136a7e56ccf1df
+  app-secret: 64ba05a839bd06eedab787807c31e441
