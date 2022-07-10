@@ -114,77 +114,79 @@ public class CheckinServiceImpl implements CheckinService {
             status=2;
         }
         int userId= (Integer) param.get("userId");
-        String faceModel=tbFaceModelDao.searchFaceModel(userId);
-        if(faceModel==null){
-            throw new EpsException("不存在人脸模型");
-        }
-        else{
-            String path=(String)param.get("path");
-            HttpRequest request = HttpUtil.createPost(checkinUrl);
-            request.form("photo", FileUtil.file(path),"targetModel",faceModel);
-            HttpResponse response=request.execute();
-            if(response.getStatus()!=200){
-                log.error("人脸识别服务异常");
-                throw new EpsException("人脸识别服务异常");
-            }
-            String body=response.body();
-            if("无法识别出人脸".equals(body)||"照片中存在多张人脸".equals(body)){
-                throw new EpsException(body);
-            }
-            else if("False".equals(body)){
-                throw new EpsException("签到无效，非本人签到");
-            }
-            else if("True".equals(body)){
-                //查询疫情风险等级
-                //默认低风险
-                int risk = 1;
-                String city = (String) param.get("city");
-                String district = (String) param.get("district");
-                if(!StrUtil.isBlank(city)&&!StrUtil.isBlank(district))
+//        人脸识别模块完成后插入
+//        String faceModel=tbFaceModelDao.searchFaceModel(userId);
+//        if(faceModel==null){
+//            throw new EpsException("不存在人脸模型");
+//        }
+//        else{
+//            String path=(String)param.get("path");
+//            HttpRequest request = HttpUtil.createPost(checkinUrl);
+//            request.form("photo", FileUtil.file(path),"targetModel",faceModel);
+//            HttpResponse response=request.execute();
+//            if(response.getStatus()!=200){
+//                log.error("人脸识别服务异常");
+//                throw new EpsException("人脸识别服务异常");
+//            }
+//            String body=response.body();
+//            if("无法识别出人脸".equals(body)||"照片中存在多张人脸".equals(body)){
+//                throw new EpsException(body);
+//            }
+//            else if("False".equals(body)){
+//                throw new EpsException("签到无效，非本人签到");
+//            }
+//            else if("True".equals(body)){
+//                //查询疫情风险等级
+//                //默认低风险
+//                //插入下面代码段
+//            }
+//        }
+        int risk = 1;
+        String city = (String) param.get("city");
+        String district = (String) param.get("district");
+        if(!StrUtil.isBlank(city)&&!StrUtil.isBlank(district))
+        {
+            //查询该城市的code
+            String code = tbCityDao.searchCode(city);
+            try {
+                String url = "http://m."+code+".bendibao.com/news/yqdengji/?qu="+district;
+                Document document = Jsoup.connect(url).get();
+                Elements elements = document.getElementsByClass("list-content");
+                if(elements.size()>0)
                 {
-                    //查询该城市的code
-                    String code = tbCityDao.searchCode(city);
-                    try {
-                        String url = "http://m."+code+".bendibao.com/news/yqdengji/?qu="+district;
-                        Document document = Jsoup.connect(url).get();
-                        Elements elements = document.getElementsByClass("list-content");
-                        if(elements.size()>0)
-                        {
-                            Element element = elements.get(0);
-                            String result = element.select("p:last-child").text();
-                            if("高风险".equals(result))
-                            {
-                                //3代表高风险
-                                risk=3;
-                                //发送告警邮件
+                    Element element = elements.get(0);
+                    String result = element.select("p:last-child").text();
+                    if("高风险".equals(result))
+                    {
+                        //3代表高风险
+                        risk=3;
+                        //发送告警邮件
 
-                            }else if("中风险".equals(result)){
-                                //2代表中风险
-                                risk=2;
+                    }else if("中风险".equals(result)){
+                        //2代表中风险
+                        risk=2;
 
-                            }
-                        }
-                    }catch (Exception e){
-                        log.error("执行异常",e);
-                        throw new EpsException("获取风险等级失败");
                     }
                 }
-                //保存签到记录
-                String address = (String) param.get("address");
-                String country = (String) param.get("country");
-                String province = (String) param.get("province");
-                TbCheckin entity=new TbCheckin();
-                entity.setUserId(userId);
-                entity.setAddress(address);
-                entity.setCountry(country);
-                entity.setProvince(province);
-                entity.setCity(city);
-                entity.setDistrict(district);
-                entity.setStatus((byte) status);
-                entity.setDate(DateUtil.today());
-                entity.setCreateTime(d1);
-                tbCheckinDao.insert(entity);
+            }catch (Exception e){
+                log.error("执行异常",e);
+                throw new EpsException("获取风险等级失败");
             }
         }
+        //保存签到记录
+        String address = (String) param.get("address");
+        String country = (String) param.get("country");
+        String province = (String) param.get("province");
+        TbCheckin entity=new TbCheckin();
+        entity.setUserId(userId);
+        entity.setAddress(address);
+        entity.setCountry(country);
+        entity.setProvince(province);
+        entity.setCity(city);
+        entity.setDistrict(district);
+        entity.setStatus((byte) status);
+        entity.setDate(DateUtil.today());
+        entity.setCreateTime(d1);
+        tbCheckinDao.insert(entity);
     }
 }
