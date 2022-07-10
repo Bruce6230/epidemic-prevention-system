@@ -58,7 +58,7 @@ public class TbCheckin implements Serializable {
     /**
      * 签到日期
      */
-    private Date date;
+    private String date;
 
     /**
      * 签到时间

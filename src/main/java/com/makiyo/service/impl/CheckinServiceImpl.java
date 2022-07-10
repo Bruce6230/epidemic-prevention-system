@@ -8,10 +8,7 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 import com.makiyo.config.SystemConstants;
-import com.makiyo.dao.TbCheckinDao;
-import com.makiyo.dao.TbFaceModelDao;
-import com.makiyo.dao.TbHolidaysDao;
-import com.makiyo.dao.TbWorkdayDao;
+import com.makiyo.dao.*;
 import com.makiyo.exception.EpsException;
 import com.makiyo.pojo.TbCheckin;
 import com.makiyo.pojo.TbFaceModel;
@@ -19,6 +16,7 @@ import com.makiyo.service.CheckinService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
+import org.jsoup.helper.DataUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -54,6 +52,9 @@ public class CheckinServiceImpl implements CheckinService {
 
     @Autowired
     private TbFaceModelDao tbFaceModelDao;
+
+    @Autowired
+    private TbCityDao tbCityDao;
 
     @Value("${eps.face.createFaceModelUrl}")
     private String createFaceModelUrl;
@@ -135,7 +136,54 @@ public class CheckinServiceImpl implements CheckinService {
             }
             else if("True".equals(body)){
                 //查询疫情风险等级
+                //默认低风险
+                int risk = 1;
+                String city = (String) param.get("city");
+                String district = (String) param.get("district");
+                if(!StrUtil.isBlank(city)&&!StrUtil.isBlank(district))
+                {
+                    //查询该城市的code
+                    String code = tbCityDao.searchCode(city);
+                    try {
+                        String url = "http://m."+code+".bendibao.com/news/yqdengji/?qu="+district;
+                        Document document = Jsoup.connect(url).get();
+                        Elements elements = document.getElementsByClass("list-content");
+                        if(elements.size()>0)
+                        {
+                            Element element = elements.get(0);
+                            String result = element.select("p:last-child").text();
+                            if("高风险".equals(result))
+                            {
+                                //3代表高风险
+                                risk=3;
+                                //发送告警邮件
+
+                            }else if("中风险".equals(result)){
+                                //2代表中风险
+                                risk=2;
+
+                            }
+                        }
+                    }catch (Exception e){
+                        log.error("执行异常",e);
+                        throw new EpsException("获取风险等级失败");
+                    }
+                }
                 //保存签到记录
+                String address = (String) param.get("address");
+                String country = (String) param.get("country");
+                String province = (String) param.get("province");
+                TbCheckin entity=new TbCheckin();
+                entity.setUserId(userId);
+                entity.setAddress(address);
+                entity.setCountry(country);
+                entity.setProvince(province);
+                entity.setCity(city);
+                entity.setDistrict(district);
+                entity.setStatus((byte) status);
+                entity.setDate(DateUtil.today());
+                entity.setCreateTime(d1);
+                tbCheckinDao.insert(entity);
             }
         }
     }
