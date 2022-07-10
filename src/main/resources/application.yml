@@ -43,6 +43,12 @@ spring:
       authentication-database: admin
       username: admin
       password: abc123456
+  mail:
+    default-encoding: UTF-8
+    host: smtp.163.com
+    username: lin171820@163.com
+    password: lin171820...
+    secret: HSSYKUVIBUJSUJUU
 
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
