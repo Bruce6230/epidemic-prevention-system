@@ -75,6 +75,7 @@ eps:
   email:
     system: lin171820@gmail.com
     hr: lin171820@gmail.com
+  image-folder: D:/epidemic-prevention-system/images
 
 wx:
   app-id: wx790a007e30c8a49c

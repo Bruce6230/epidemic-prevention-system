@@ -1,5 +1,8 @@
 package com.makiyo.form;
 
+import lombok.Data;
+
+@Data
 public class CheckinForm {
     //地址
     private String address;

@@ -7,6 +7,7 @@ import com.makiyo.pojo.SysConfig;
 import io.netty.util.internal.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -29,6 +30,9 @@ public class EpidemicPreventionSystemApplication {
     @Autowired
     private SystemConstants systemConstants;
 
+    @Value("${eps.image-folder}")
+    private String imageFolder;
+
     @PostConstruct
     public void init()
     {
@@ -44,6 +48,7 @@ public class EpidemicPreventionSystemApplication {
                 log.error("执行异常",e);
             }
         });
+        new File(imageFolder).mkdirs();
     }
     public static void main(String[] args) {
         SpringApplication.run(EpidemicPreventionSystemApplication.class, args);
