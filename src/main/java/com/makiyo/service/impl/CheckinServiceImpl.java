@@ -189,4 +189,20 @@ public class CheckinServiceImpl implements CheckinService {
         entity.setCreateTime(d1);
         tbCheckinDao.insert(entity);
     }
+
+    @Override
+    public void createFaceModel(int userId, String path) {
+        HttpRequest request = HttpUtil.createPost(createFaceModelUrl);
+        request.form("photo",FileUtil.file(path));
+        HttpResponse response = request.execute();
+        String body = response.body();
+        if("无法识别人脸".equals(body)||"存在多张人脸".equals(body)) {
+            throw new EpsException("body");
+        }else{
+            TbFaceModel entity = new TbFaceModel();
+            entity.setUserId(userId);
+            entity.setFaceModel(body);
+            tbFaceModelDao.insert(entity);
+        }
+    }
 }
