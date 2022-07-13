@@ -151,7 +151,7 @@ var txmapsdk;var _default =
 {
   data: function data() {
     return {
-      canCheckin: false,
+      canCheckin: true,
       photoPath: '',
       buttonText: '拍照',
       showCamera: true,
@@ -162,6 +162,23 @@ var txmapsdk;var _default =
     txmapsdk = new TxMapWx({
       key: "OMSBZ-OVURD-YCN4O-HB6FZ-O6P66-JIFBR" });
 
+  },
+  onShow: function onShow()
+  {
+    var that = this;
+    that.ajax(that.url.validCanCheckIn, "GET", null, function (response) {
+      var msg = response.data.msg;
+      if (msg != "可以考勤")
+      {
+        that.checkin = false;
+        setTimeout(function () {
+          uni.showToast({
+            title: msg,
+            icon: "none" });
+
+        }, 1000);
+      }
+    });
   },
   methods: {
     clickButton: function clickButton()
@@ -202,13 +219,82 @@ var txmapsdk;var _default =
                 longitude: longitude },
 
               success: function success(response) {
-                console.log(response.result);
+                // console.log(response.result)
                 var address = response.result.address;
                 var addressComponent = response.result.address_component;
                 var nation = addressComponent.nation;
                 var province = addressComponent.province;
                 var city = addressComponent.city;
                 var district = addressComponent.district;
+                uni.uploadFile({
+                  url: that.url.checkin,
+                  filePath: that.photoPath,
+                  name: "photo",
+                  header: {
+                    token: uni.getStorageSync("token") },
+
+                  formData: {
+                    address: address,
+                    country: nation,
+                    province: province,
+                    city: city,
+                    district: district },
+
+                  success: function success(response) {
+                    if (response.statusCode == 500 && response.data == "不存在人脸模型") {
+                      uni.hideLoading();
+                      uni.showModal({
+                        title: "提示信息",
+                        content: "Eps系统中不存在你的人脸模型，是否选用当前照片作为人脸模型?",
+                        success: function success(response) {
+                          if (response.confirm) {
+                            uni.uploadFile({
+                              url: that.url.createFaceModel,
+                              filePath: that.photoPath,
+                              name: "photo",
+                              header: {
+                                token: uni.getStorageSync("token") },
+
+                              success: function success(response) {
+                                if (response.statusCode == 500) {
+                                  uni.showToast({
+                                    title: response.data,
+                                    icon: "none" });
+
+                                } else if (response.statusCode == 200) {
+                                  uni.showToast({
+                                    title: "人脸建模成功",
+                                    icon: "none" });
+
+                                }
+                              } });
+
+                          }
+                        } });
+
+                    } else if (response.statusCode == 200) {
+                      // 获得字符串，解析为JSON
+                      var data = JSON.parse(response.data);
+                      var code = data.code;
+                      var msg = data.msg;
+                      if (code == 200) {
+                        uni.hideLoading();
+                        uni.showToast({
+                          title: "签到成功",
+                          complete: function complete() {
+
+                          } });
+
+                      }
+                    } else if (response.statusCode == 500) {
+                      uni.showToast({
+                        title: response.data,
+                        icon: "none" });
+
+                    }
+                  } });
+
+
               } });
 
           } });

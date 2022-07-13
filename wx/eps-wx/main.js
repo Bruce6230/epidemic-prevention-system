@@ -24,7 +24,10 @@ let BaseUrl = "http://192.168.1.104:8080/epidemic-prevention-system"
 
 Vue.prototype.url={
 	register: BaseUrl+"/user/register",
-	login: BaseUrl+"/user/login"
+	login: BaseUrl+"/user/login",
+	checkin: BaseUrl+"/checkin/checkin",
+	createFaceModel: BaseUrl+"/checkin/createFaceModel",
+	validCanCheckIn: BaseUrl+"/checkin/validCanCheckIn"
 }
 
 Vue.prototype.ajax=function(url , method, data, fun){
