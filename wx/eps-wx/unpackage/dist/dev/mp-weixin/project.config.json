@@ -11,21 +11,23 @@
   "appid": "wx790a007e30c8a49c",
   "projectname": "eps-wx",
   "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
+    "plugin": {
       "list": []
     },
     "game": {
-      "current": -1,
+      "list": []
+    },
+    "gamePlugin": {
       "list": []
     },
     "miniprogram": {
-      "current": -1,
-      "list": []
+      "list": [
+        {
+          "name": "pages/checkin_result/checkin_result",
+          "pathName": "pages/checkin_result/checkin_result",
+          "scene": null
+        }
+      ]
     }
   }
 }

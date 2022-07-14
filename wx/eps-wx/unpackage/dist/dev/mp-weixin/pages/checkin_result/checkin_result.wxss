@@ -1,0 +1,48 @@
+.page {
+  background-color: #eeeef4;
+}
+.yellow {
+  background-color: #f0b52f;
+}
+.red {
+  background-color: #f0532f;
+}
+.green {
+  background-color: #52a929;
+}
+.summary-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 35rpx;
+  margin-bottom: 20rpx;
+}
+.summary-container .user-info {
+  display: flex;
+}
+.summary-container .user-info .photo {
+  width: 100rpx;
+  height: 100rpx;
+}
+.summary-container .user-info .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 25rpx;
+}
+.summary-container .user-info .info .username {
+  display: block;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+}
+.summary-container .user-info .info .dept {
+  display: block;
+  font-size: 28rpx;
+  color: #999;
+}
+.summary-container .date {
+  font-size: 30rpx;
+  color: #3474FF;
+}
+

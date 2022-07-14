@@ -1,0 +1,1 @@
+<view class="page"><view class="summary-container"><view class="user-info"><image class="photo" src="{{photo}}" mode="widthFIx"></image><view class="info"><text class="username">{{name}}</text><text class="dept">{{"隶属部门："+(deptName==null?"":deptName)}}</text></view></view><view class="date">{{date}}</view></view></view>
