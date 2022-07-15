@@ -1,5 +1,7 @@
 package com.makiyo.service.impl;
 
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateRange;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
@@ -26,6 +28,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -204,5 +207,70 @@ public class CheckinServiceImpl implements CheckinService {
             entity.setFaceModel(body);
             tbFaceModelDao.insert(entity);
         }
+    }
+
+    @Override
+    public HashMap searchTodayCheckin(int userId) {
+        HashMap map = tbCheckinDao.searchTodayCheckin(userId);
+        return map;
+    }
+
+    @Override
+    public long searchCheckinDays(int userId) {
+        long days = tbCheckinDao.searchCheckinDays(userId);
+        return days;
+    }
+
+    @Override
+    public ArrayList<HashMap> searchWeekCheckin(HashMap param) {
+        ArrayList<HashMap> checkinList = tbCheckinDao.searchWeekCheckin(param);
+        ArrayList holidaysList = tbHolidaysDao.searchHolidaysInRange(param);
+        ArrayList workdayList = tbWorkdayDao.searchWorkdayInRange(param);
+        DateTime startDate = DateUtil.parseDate(param.get("startDate").toString());
+        DateTime endDate = DateUtil.parseDate(param.get("endDate").toString());
+        DateRange range = DateUtil.range(startDate,endDate, DateField.DAY_OF_MONTH);
+        ArrayList<HashMap> list = new ArrayList<>();
+        range.forEach(one->{
+            String date = one.toString("yyyy-MM-dd");
+            String type = "工作日";
+            if(one.isWeekend()){
+                type="节假日";
+            }
+            if(holidaysList!=null&&holidaysList.contains(date))
+            {
+                type="节假日";
+            }
+            else if(workdayList!=null&&workdayList.contains(date))
+            {
+                type="工作日";
+            }
+            String status = "";
+            boolean flag = false;
+            if(type.equals("工作日")&&DateUtil.compare(one,DateUtil.date())<0)
+            {
+                status="缺勤";
+                for (HashMap<String,String> map:checkinList){
+                    if(map.containsValue(date))
+                    {
+                        status=map.get("status");
+                        flag = true;
+                        break;
+                    }
+                }
+                DateTime endTime =DateUtil.parse(DateUtil.today()+" "+systemConstants.attendanceEndTime);
+                String today = DateUtil.today();
+                if(date.equals(today)&&DateUtil.date().isBefore(endTime)&&flag==false)
+                {
+                    status="";
+                }
+            }
+            HashMap map = new HashMap();
+            map.put("date",date);
+            map.put("status",status);
+            map.put("type",type);
+            map.put("day",one.dayOfWeekEnum().toChinese("周"));
+            list.add(map);
+        });
+        return list;
     }
 }
