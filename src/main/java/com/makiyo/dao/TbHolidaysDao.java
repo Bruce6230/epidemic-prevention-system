@@ -3,6 +3,9 @@ package com.makiyo.dao;
 import com.makiyo.pojo.TbHolidays;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 @Mapper
 public interface TbHolidaysDao {
     int deleteByPrimaryKey(Integer id);
@@ -18,4 +21,6 @@ public interface TbHolidaysDao {
     int updateByPrimaryKey(TbHolidays record);
 
     public Integer searchTodayIsHolidays();
+
+    public ArrayList<String> searchHolidaysInRange(HashMap param);
 }

@@ -208,9 +208,4 @@
     WHERE user_id=#{userId}
       AND date BETWEEN #{startDate} AND #{endDate}
   </select>
-  <select id="searchHolidaysInRange" parameterType="HashMap" resultType="String">
-    SELECT date
-    FROM tb_holidays
-    WHERE date BETWEEN #{startDate} AND #{endDate}
-  </select>
 </mapper>

@@ -27,6 +27,4 @@ public interface TbCheckinDao {
     public long searchCheckinDays(int userId);
 
     public ArrayList<HashMap> searchWeekCheckin(HashMap param);
-
-    public ArrayList<String> searchHolidaysInRange(HashMap param);
 }
