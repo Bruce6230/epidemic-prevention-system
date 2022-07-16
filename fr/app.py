@@ -15,9 +15,10 @@
 
 # NOTE: This example requires flask to be installed! You can install it with pip:
 # $ pip3 install flask
+import os
 
 import face_recognition
-from flask import Flask, jsonify, request, redirect
+from flask import Flask, jsonify, request, redirect, Response
 
 # You can change this to any folder on your system
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -29,6 +30,19 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
+@app.route("/createFaceModel",methods=['POST','GET'])
+def upload():
+    f = request.files.get('photo')
+    upload_path = os.path.join("images/tmp."+f.filename.split(".")[-1])
+    f.save(upload_path)
+    Photo_image = face_recognition.load_image_file("images/tmp.jpg")
+    Photo_face_encoding = face_recognition.face_encodings(Photo_image)[0]
+    face_encoding_str = ','.join(str(x) for x in Photo_face_encoding)
+    response = Response()
+    response.data=face_encoding_str
+    response.status_code=200
+    return response
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_image():
@@ -119,4 +133,4 @@ def detect_faces_in_image(file_stream):
     return jsonify(result)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host="192.168.1.104", port=5001, debug=True)

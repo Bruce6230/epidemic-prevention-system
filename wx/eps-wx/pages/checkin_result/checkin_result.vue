@@ -10,6 +10,14 @@
 			</view>
 			<view class="date">{{date}}</view>
 		</view>
+		<view class="result-container">
+			<view class="left">
+				<image src="../../static/icon-6.png" mode="widthFix" class="icon-timer"></image>
+				<image src="../../static/icon-6.png" mode="widthFix" class="icon-timer"></image>
+				<view class="line"></view>
+			</view>
+			<view></view>
+		</view>
 	</view>
 </template>
 

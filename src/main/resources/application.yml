@@ -70,8 +70,8 @@ eps:
     expire: 5 #过期时间
     cache-expire: 10 #缓存过期时间
   face:
-    createFaceModelUrl: http://192.168.1.88:3000/create_face_model
-    checkinUrl: http://192.168.1.88:3000/checkin
+    createFaceModelUrl: http://192.168.1.104:5001/create_face_model
+    checkinUrl: http://192.168.1.104:5001/checkin
   email:
     system: lin171820@gmail.com
     hr: lin171820@gmail.com
