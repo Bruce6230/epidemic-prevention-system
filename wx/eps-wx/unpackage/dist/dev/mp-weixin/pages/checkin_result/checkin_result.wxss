@@ -45,4 +45,27 @@
   font-size: 30rpx;
   color: #3474FF;
 }
+.result-container {
+  display: flex;
+  background-color: #fff;
+  padding: 35rpx;
+  margin-bottom: 20rpx;
+}
+.result-container .left {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 330rpx;
+}
+.result-container .left .icon-timer {
+  width: 40rpx;
+  height: 40rpx;
+}
+.result-container .left .line {
+  position: absolute;
+  height: 225rpx;
+  width: 0;
+  border-left: solid #e5e5e5 2rpx;
+}
 

@@ -1,26 +1,9 @@
-# This is a _very simple_ example of a web service that recognizes faces in uploaded images.
-# Upload an image file and it will check if the image contains a picture of Barack Obama.
-# The result is returned as json. For example:
-#
-# $ curl -XPOST -F "file=@obama2.jpg" http://127.0.0.1:5001
-#
-# Returns:
-#
-# {
-#  "face_found_in_image": true,
-#  "is_picture_of_obama": true
-# }
-#
-# This example is based on the Flask file upload example: http://flask.pocoo.org/docs/0.12/patterns/fileuploads/
-
-# NOTE: This example requires flask to be installed! You can install it with pip:
-# $ pip3 install flask
 import os
 
 import face_recognition
+import numpy as np
 from flask import Flask, jsonify, request, redirect, Response
 
-# You can change this to any folder on your system
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
@@ -30,19 +13,6 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
-@app.route("/createFaceModel",methods=['POST','GET'])
-def upload():
-    f = request.files.get('photo')
-    upload_path = os.path.join("images/tmp."+f.filename.split(".")[-1])
-    f.save(upload_path)
-    Photo_image = face_recognition.load_image_file("images/tmp.jpg")
-    Photo_face_encoding = face_recognition.face_encodings(Photo_image)[0]
-    face_encoding_str = ','.join(str(x) for x in Photo_face_encoding)
-    response = Response()
-    response.data=face_encoding_str
-    response.status_code=200
-    return response
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_image():
@@ -57,10 +27,10 @@ def upload_image():
             return redirect(request.url)
 
         if file and allowed_file(file.filename):
-            # The image file seems valid! Detect faces and return the result.
+
             return detect_faces_in_image(file)
 
-    # If no valid image file was uploaded, show the file upload form:
+
     return '''
     <!doctype html>
     <title>Is this a picture of Obama?</title>
@@ -118,6 +88,8 @@ def detect_faces_in_image(file_stream):
     face_found = False
     is_obama = False
 
+    print(len(unknown_face_encodings))
+
     if len(unknown_face_encodings) > 0:
         face_found = True
         # See if the first face in the uploaded image matches the known face of Obama
@@ -132,5 +104,92 @@ def detect_faces_in_image(file_stream):
     }
     return jsonify(result)
 
+# # 创建人脸识别模型
+# @app.route("/createFaceModel",methods=['POST','GET'])
+# def upload():
+#     # 获取request中photo参数文件
+#     f = request.files.get('photo')
+#     upload_path = os.path.join("images/"+f.filename)
+#     f.save(upload_path)
+#     # 保存图片
+#     Photo_image = face_recognition.load_image_file("images/"+f.filename)
+#     Photo_face_encoding = face_recognition.face_encodings(Photo_image)[0]
+#     face_encoding_str = ','.join(str(x) for x in Photo_face_encoding)
+#     response = Response()
+#
+#     # 创建一个已知人脸编码及其名称的数组
+#     known_face_encoding = [
+#         Photo_face_encoding
+#     ]
+#     if(len(known_face_encoding)>1):
+#         response.data = "存在多张人脸"
+#     elif (len(known_face_encoding)==1):
+#         response.data=face_encoding_str
+#     else:
+#         response.data = "无法识别人脸"
+#     response.status_code=200
+#     return response
+
+# 创建人脸识别模型
+@app.route("/create_face_model",methods=['POST','GET'])
+def create_face_model():
+    # 获取request中photo参数文件
+    f = request.files.get('photo')
+    upload_path = os.path.join("images/"+f.filename)
+    # 保存图片
+    f.save(upload_path)
+    Photo_image = face_recognition.load_image_file("images/"+f.filename)
+    Photo_face_encoding = face_recognition.face_encodings(Photo_image)[0]
+    face_encoding_str = ','.join(str(x) for x in Photo_face_encoding)
+    response = Response()
+
+    # 创建一个已知人脸编码及其名称的数组
+    known_face_encoding = [
+        Photo_face_encoding
+    ]
+    if(len(known_face_encoding)>1):
+        response.data = "存在多张人脸"
+    elif (len(known_face_encoding)==1):
+        response.data=face_encoding_str
+    else:
+        response.data = "无法识别人脸"
+    response.status_code=200
+    return response
+
+# 人脸识别检测
+@app.route("/checkin",methods=['POST','GET'])
+def checkin():
+    # 获取request中photo参数图片
+    f = request.files.get('photo')
+    upload_path = os.path.join("images/" + f.filename)
+    # 保存图片
+    f.save(upload_path)
+    Photo_image = face_recognition.load_image_file("images/" + f.filename)
+    Photo_face_encoding = face_recognition.face_encodings(Photo_image)[0]
+    # 获取request中人脸模型128维向量
+    value = request.form.get('targetModel')
+    # 创建已知128维向量
+    known_face_encodings = []
+    # 创建未知128维向量
+    unknown_face_encoding = [
+        Photo_face_encoding
+    ]
+    # 进行类型转换，并存储到known_face_encodings中
+    known_face_encodings.append(np.array([float(x) for x in value.split(',')]))
+    response = Response()
+    if len(unknown_face_encoding)>1:
+        response.data="照片中存在多张人脸"
+    elif len(unknown_face_encoding)==1:
+        # 进行人脸比较
+        match_results = face_recognition.compare_faces(known_face_encodings, Photo_face_encoding)
+        if match_results[0]:
+            response.data="True"
+        else:
+            response.data = "False"
+    else:
+        response.data = "无法识别出人脸"
+    response.status_code = 200
+    return response
+
 if __name__ == "__main__":
-    app.run(host="192.168.1.104", port=5001, debug=True)
+    app.run(host="192.168.31.152", port=5001, debug=True)

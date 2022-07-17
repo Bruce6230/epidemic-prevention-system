@@ -91,7 +91,7 @@ public class CheckinController {
     }
 
     @PostMapping("/createFaceModel")
-    @ApiOperation("签到")
+    @ApiOperation("创建人脸模型")
     public Response createFaceModel(@RequestParam("photo") MultipartFile file,@RequestHeader("token") String token){
         if(file==null)
         {

@@ -29,7 +29,8 @@ createApp(app).$mount();
 
 
 
-var BaseUrl = "http://192.168.1.104:8080/epidemic-prevention-system";
+//修改ip
+var BaseUrl = "http://192.168.31.152:8080/epidemic-prevention-system";
 
 _vue.default.prototype.url = {
   register: BaseUrl + "/user/register",

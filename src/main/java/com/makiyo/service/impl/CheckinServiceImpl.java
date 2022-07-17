@@ -117,33 +117,33 @@ public class CheckinServiceImpl implements CheckinService {
             status=2;
         }
         int userId= (Integer) param.get("userId");
-//        人脸识别模块完成后插入
-//        String faceModel=tbFaceModelDao.searchFaceModel(userId);
-//        if(faceModel==null){
-//            throw new EpsException("不存在人脸模型");
-//        }
-//        else{
-//            String path=(String)param.get("path");
-//            HttpRequest request = HttpUtil.createPost(checkinUrl);
-//            request.form("photo", FileUtil.file(path),"targetModel",faceModel);
-//            HttpResponse response=request.execute();
-//            if(response.getStatus()!=200){
-//                log.error("人脸识别服务异常");
-//                throw new EpsException("人脸识别服务异常");
-//            }
-//            String body=response.body();
-//            if("无法识别出人脸".equals(body)||"照片中存在多张人脸".equals(body)){
-//                throw new EpsException(body);
-//            }
-//            else if("False".equals(body)){
-//                throw new EpsException("签到无效，非本人签到");
-//            }
-//            else if("True".equals(body)){
-//                //查询疫情风险等级
-//                //默认低风险
-//                //插入下面代码段
-//            }
-//        }
+        String faceModel=tbFaceModelDao.searchFaceModel(userId);
+        if(faceModel==null){
+            throw new EpsException("不存在人脸模型");
+        }
+        else{
+            String path=(String)param.get("path");
+            HttpRequest request = HttpUtil.createPost(checkinUrl);
+            request.form("photo", FileUtil.file(path),"targetModel",faceModel);
+            HttpResponse response=request.execute();
+            if(response.getStatus()!=200){
+                log.error("人脸识别服务异常");
+                throw new EpsException("人脸识别服务异常");
+            }
+            String body=response.body();
+            if("无法识别出人脸".equals(body)||"照片中存在多张人脸".equals(body)){
+                throw new EpsException(body);
+            }
+            else if("False".equals(body)){
+                throw new EpsException("签到无效，非本人签到");
+            }
+            else if("True".equals(body)){
+                //查询疫情风险等级
+                //默认低风险
+                //插入下面代码段
+                System.out.println("人脸识别成功");
+            }
+        }
         int risk = 1;
         String city = (String) param.get("city");
         String district = (String) param.get("district");
@@ -200,7 +200,7 @@ public class CheckinServiceImpl implements CheckinService {
         HttpResponse response = request.execute();
         String body = response.body();
         if("无法识别人脸".equals(body)||"存在多张人脸".equals(body)) {
-            throw new EpsException("body");
+            throw new EpsException(body);
         }else{
             TbFaceModel entity = new TbFaceModel();
             entity.setUserId(userId);

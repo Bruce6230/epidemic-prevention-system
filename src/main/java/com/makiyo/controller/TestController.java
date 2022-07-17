@@ -57,7 +57,7 @@ public class TestController {
     @ApiOperation("检测人脸")
     public void testFace(int userId, String path)
     {
-        HttpRequest request = HttpUtil.createPost("http://192.168.1.104:5001/createFaceModel");
+        HttpRequest request = HttpUtil.createPost("http://192.168.31.152:5001/createFaceModel");
         request.form("photo", FileUtil.file(path));
         HttpResponse response = request.execute();
         String body = response.body();

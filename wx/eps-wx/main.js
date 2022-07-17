@@ -20,7 +20,8 @@ export function createApp() {
 }
 // #endif
 
-let BaseUrl = "http://192.168.1.104:8080/epidemic-prevention-system"
+//修改ip
+let BaseUrl = "http://192.168.31.152:8080/epidemic-prevention-system"
 
 Vue.prototype.url={
 	register: BaseUrl+"/user/register",
