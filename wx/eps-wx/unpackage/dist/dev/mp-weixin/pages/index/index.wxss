@@ -40,7 +40,7 @@
 }
 .notify-container .notify-title {
   font-size: 34rpx;
-  color: #3474FF;
+  color: #6A5ACD;
   margin-bottom: 10rpx;
 }
 .notify-container .notify-title .notify-icon {
