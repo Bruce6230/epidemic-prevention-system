@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "",
+  "navigationBarTitleText": "个人中心",
   "enablePullDownRefresh": false,
   "usingComponents": {
     "uni-list": "/components/uni-list/uni-list",

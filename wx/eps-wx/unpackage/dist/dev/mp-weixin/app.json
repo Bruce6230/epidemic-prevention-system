@@ -8,7 +8,8 @@
     "pages/document/document",
     "pages/mine/mine",
     "pages/checkin/checkin",
-    "pages/checkin_result/checkin_result"
+    "pages/checkin_result/checkin_result",
+    "pages/mine_checkin/mine_checkin"
   ],
   "subPackages": [],
   "window": {

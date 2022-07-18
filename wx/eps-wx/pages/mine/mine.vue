@@ -4,7 +4,7 @@
 			<view class="user">
 				<image src="../../static/user.png" mode="widthFix" class="photo"></image>
 				<view class="row">
-					<text class="username">GentlemanLin</text>
+					<text class="username">{{name}}</text>
 				</view>
 			</view>
 			<view class="summary">

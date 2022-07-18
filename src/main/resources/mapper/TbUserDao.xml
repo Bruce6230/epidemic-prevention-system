@@ -254,7 +254,12 @@
     FROM tb_user WHERE id=#{userId} AND status=1
   </select>
   <select id="searchUserHiredate" parameterType="int" resultType="String">
-    SELECT hiredate FROM tb_user
-    WHERE id=#{userId} AND status=1
+    select hiredate from tb_user
+    where id=#{userId} and status=1
+  </select>
+  <select id="searchUserSummary" parameterType="int" resultType="HashMap">
+    select u.name, u.photo, d.dept_name as deptName
+    from tb_user u left join tb_dept d on u.dept_id=d.id
+    where u.id=#{userId} and u.status=1
   </select>
 </mapper>

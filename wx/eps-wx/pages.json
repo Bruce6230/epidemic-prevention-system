@@ -56,7 +56,7 @@
             "path" : "pages/mine/mine",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "个人中心",
                 "enablePullDownRefresh": false
             }
             
@@ -65,7 +65,7 @@
             "path" : "pages/checkin/checkin",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "人脸签到",
                 "enablePullDownRefresh": false
             }
             
@@ -74,7 +74,16 @@
             "path" : "pages/checkin_result/checkin_result",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "签到结果",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine_checkin/mine_checkin",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的考勤",
                 "enablePullDownRefresh": false
             }
             
