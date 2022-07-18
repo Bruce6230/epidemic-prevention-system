@@ -3,13 +3,28 @@
 }
 
 .user-info{
-	margin-top: 50rpx;
+	margin-top: 30rpx;
 	padding-bottom: 20rpx;
 	.user{
 		display: flex;
+		padding-bottom: 50rpx;
 		.photo{
-			width: 100rpx;
-			height: 100rpx;
+			width: 120rpx;
+			height: 120rpx;
+			border-radius:50%;
+			margin-left: 30rpx;
+		}
+		.row{
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			margin-left: 80rpx;
+			.username{
+				display: block;
+				font-size: 48rpx;
+				font-weight: bold;
+				color: #333;
+			}
 		}
 	}
 	.summary{
@@ -24,7 +39,6 @@
 			flex-shrink: 1;
 			&:nth-child(2){
 				border-left: solid 1rpx #e0e0e0;
-				border-right: solid 1rpx #e0e0e0;
 			}
 			.title{
 				display: block;
@@ -44,8 +58,8 @@
 .list-title{
 	font-size: 32rpx;
 	font-weight: bold;
-	color: #3474FF;
-	border-left: solid 15rpx #3474FF;
+	color: #6A5ACD;
+	border-left: solid 15rpx #6A5ACD;
 	padding-left: 20rpx;
 	margin: 35rpx 0;
 }

@@ -2,15 +2,30 @@
   padding: 35rpx;
 }
 .user-info {
-  margin-top: 50rpx;
+  margin-top: 30rpx;
   padding-bottom: 20rpx;
 }
 .user-info .user {
   display: flex;
+  padding-bottom: 50rpx;
 }
 .user-info .user .photo {
-  width: 100rpx;
-  height: 100rpx;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin-left: 30rpx;
+}
+.user-info .user .row {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 80rpx;
+}
+.user-info .user .row .username {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
 }
 .user-info .summary {
   display: flex;
@@ -26,7 +41,6 @@
 }
 .user-info .summary view:nth-child(2) {
   border-left: solid 1rpx #e0e0e0;
-  border-right: solid 1rpx #e0e0e0;
 }
 .user-info .summary view .title {
   display: block;
@@ -42,8 +56,8 @@
 .list-title {
   font-size: 32rpx;
   font-weight: bold;
-  color: #3474FF;
-  border-left: solid 15rpx #3474FF;
+  color: #6A5ACD;
+  border-left: solid 15rpx #6A5ACD;
   padding-left: 20rpx;
   margin: 35rpx 0;
 }
