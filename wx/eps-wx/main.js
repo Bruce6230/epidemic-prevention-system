@@ -30,6 +30,7 @@ Vue.prototype.url={
 	createFaceModel: BaseUrl+"/checkin/createFaceModel",
 	validCanCheckIn: BaseUrl+"/checkin/validCanCheckIn",
 	searchTodayCheckin: BaseUrl + "/checkin/searchTodayCheckin",
+	searchUserSummary: BaseUrl + "/user/searchUserSummary",
 }
 
 Vue.prototype.ajax=function(url , method, data, fun){

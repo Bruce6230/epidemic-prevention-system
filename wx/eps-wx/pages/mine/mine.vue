@@ -1,15 +1,62 @@
 <template>
-	<view>
-		我的
+	<view class="page">
+		<view class="user-info">
+			<view class="user">
+				<image :src="photo" mode="widthFix" class="photo"></image>
+			</view>
+			<view class="row">
+				<view class="title">姓名</view>
+				<text class="value">{{name}}</text>
+			</view>
+			<view class="summary">
+				<view>
+					<text class="title">部门</text>
+					<text class="value">{{deptName}}</text>
+				</view>
+				<view>
+					<text class="title">状态</text>
+					<text class="value">在职</text>
+				</view>
+			</view>
+		</view>
+		<view class="list-title">用户信息栏目</view>
+		<uni-list>
+			<uni-list-item title="个人资料" link to=""></uni-list-item>
+			<uni-list-item title="我的考勤" link to="/pages/my_checkin/my_checkin"></uni-list-item>
+			<uni-list-item title="罚款记录" link to=""></uni-list-item>
+		</uni-list>
+		<view class="list-title">系统管理栏目</view>
+		<uni-list>
+			<uni-list-item title="员工管理" v-show="checkPermission(['ROOT','EMPLOYEE:SELECT'])" link to=""></uni-list-item>
+			<uni-list-item title="部门管理" v-show="checkPermission(['ROOT','DEPT:SELECT'])" link to=""></uni-list-item>
+			<uni-list-item title="权限管理" v-show="checkPermission(['ROOT','ROLE:SELECT'])" link to=""></uni-list-item>
+		</uni-list>
 	</view>
 </template>
 
 <script>
+	import uniList from '@/components/uni-list/uni-list.vue';
+	import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 	export default {
+		components:{
+			uniList,
+			uniListItem
+		},
 		data() {
 			return {
-				
+				name:"",
+				deptName:"",
+				photo:""
 			}
+		},
+		onShow:function(){
+			let that=this
+			that.ajax(that.url.searchUserSummary,"GET",null,function(response){
+				let result=response.data.result
+				that.name=result.name
+				that.deptName=result.deptName
+				that.photo=result.photo
+			})
 		},
 		methods: {
 			
@@ -18,5 +65,5 @@
 </script>
 
 <style lang="less">
-@import url("mine.less");
+	@import url("mine.less");
 </style>

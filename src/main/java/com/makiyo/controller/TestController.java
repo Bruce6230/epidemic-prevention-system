@@ -1,6 +1,7 @@
 package com.makiyo.controller;
 
 import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.http.HttpRequest;
@@ -10,11 +11,13 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.makiyo.form.TestSayHelloForm;
+import com.makiyo.service.UserService;
 import com.makiyo.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,13 +31,15 @@ public class TestController {
     @Value("${eps.face.checkinUrl}")
     private String checkinUrl;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/sayHello")
     @ApiOperation("测试方法")
     public Response sayHello(@Valid @RequestBody TestSayHelloForm form)
     {
         return Response.ok().put("message","hello world,"+form.getName());
     }
-
     public static void main(String[] args) {
         int userId = 171820;
         String secret = "lin171820";
@@ -43,6 +48,8 @@ public class TestController {
         JWTCreator.Builder builder = JWT.create();
         String token = builder.withClaim("userId",userId).withExpiresAt(date).sign(algorithm);
         System.out.println(token);
+        DateTime startDate=DateUtil.beginOfWeek(DateUtil.date());
+        System.out.println(startDate);
     }
 
     @PostMapping("/addUser")
@@ -63,4 +70,5 @@ public class TestController {
         String body = response.body();
         System.out.println(body);
     }
+
 }
