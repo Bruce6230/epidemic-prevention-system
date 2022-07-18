@@ -170,40 +170,44 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="haveCheckin" parameterType="hashmap" resultType="integer">
-    select id from tb_checkin where user_id = #{userId} and date = current_date and create_time between #{start} and #{end} limit 1;
+  <select id="haveCheckin" parameterType="HashMap" resultType="Integer">
+    SELECT id
+    FROM tb_checkin
+    WHERE user_id = #{userId} AND date = CURRENT_DATE
+      AND create_time BETWEEN #{start} AND #{end}
+      LIMIT 1;
   </select>
   <select id="searchTodayCheckin" parameterType="int" resultType="HashMap">
-  SELECT
-    u.name,
-    u.photo,
-    d.dept_name as deptName,
-    ck.address
-    CASE
-      WHEN ck.status=1 THEN '正常'
-      WHEN ck.status=2 THEN '迟到'
-        END AS status,
-    CASE
-      WHEN ck.risk=1 THEN '低风险'
-      WHEN ck.risk=2 THEN '中风险'
-      WHEN ck.risk=3 THEN '高风险'
-        END AS status,
-    DATE_FORMAT(ck.create_time,"%H:%i") AS checkinTime,
-    ck.date
-  FROM tb_user u
-      LEFT JOIN tb_dept d ON u.dept_id=d.id
-      LEFT JOIN tb_checkin ck ON u.id=ck.user_id AND ck.date=CURRENT_DATE
-  WHERE u.id=#{userId} AND u.status=1
+    SELECT
+      u.name,
+      u.photo,
+      d.dept_name AS deptName,
+      ck.address,
+      CASE
+        WHEN ck.status=1 THEN '正常'
+        WHEN ck.status=2 THEN '迟到'
+        END as status,
+      CASE
+        WHEN ck.risk=1 THEN '低风险'
+        WHEN ck.risk=2 THEN '中风险'
+        WHEN ck.risk=3 THEN '高风险'
+        END as risk,
+      DATE_FORMAT(ck.create_time,"%H:%i") AS checkinTime,
+      ck.date
+    FROM tb_user u
+           LEFT JOIN tb_dept d ON u.dept_id=d.id
+           LEFT JOIN tb_checkin ck ON u.id=ck.user_id AND ck.date=CURRENT_DATE
+    WHERE u.id=#{userId} AND u.status=1
   </select>
   <select id="searchCheckinDays" parameterType="int" resultType="long">
     SELECT COUNT(*) AS count
     FROM tb_checkin
-    WHERE user_id = #{userId}
+    WHERE user_id=#{userId}
   </select>
   <select id="searchWeekCheckin" parameterType="HashMap" resultType="HashMap">
     SELECT
       CAST(date AS CHAR) AS date,
-	IF(status=1,"正常"."迟到") AS status
+	  IF(status=1,"正常","迟到") AS status
     FROM tb_checkin
     WHERE user_id=#{userId}
       AND date BETWEEN #{startDate} AND #{endDate}

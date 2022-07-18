@@ -1,15 +1,15 @@
 .page{
 	background-color: #eeeef4;
-	
 }
+
 .yellow{
-	background-color: #f0b52f;
+	background-color: #f0b52f !important;
 }
 .red{
-	background-color: #f0532f;
+	background-color: #f0532f !important;
 }
 .green{
-	background-color: #52a929;
+	background-color: #52a929 !important;
 }
 .summary-container{
 	display: flex;
@@ -22,6 +22,7 @@
 		.photo{
 			width: 100rpx;
 			height: 100rpx;
+			
 		}
 		.info{
 			display: flex;
@@ -42,10 +43,11 @@
 		}
 	}
 	.date{
-		font-size: 30rpx;
+		font-size: 38rpx;
 		color: #3474FF;
 	}
 }
+
 .result-container{
 	display: flex;
 	background-color: #fff;
@@ -57,18 +59,138 @@
 		flex-direction: column;
 		justify-content: space-between;
 		height: 330rpx;
+		margin-right: 30rpx;
 		.icon-timer{
 			width: 40rpx;
 			height: 40rpx;
+			&:first-child{
+				margin-top: 5rpx;
+			}
 		}
 		.line{
 			position: absolute;
 			height: 225rpx;
 			width: 0;
 			border-left: solid #e5e5e5 2rpx;
+			left: 20rpx;
+			top: 55rpx;
 		}
 	}
 	.right{
-		
+		.row{
+			display: flex;
+			margin-bottom: 25rpx;
+			.start,.end{
+				font-style: 32rpx;
+				color: #3474FF;
+			}
+			.checkin-time{
+				font-size: 38rpx;
+				font-weight: bold;
+				color: #333;
+				display: block;
+			}
+			.checkin-result{
+				display: block;
+				background-color: #fff;
+				font-size: 26rpx;
+				height: 42rpx;
+				line-height: 42rpx;
+				padding: 0 15rpx;
+				border-radius: 8rpx;
+				margin-left: 20rpx;
+				color: #fff;
+			}
+			.other{
+				margin-top: 7rpx;
+				margin-left: 10rpx;
+			}
+			.icon-small{
+				width: 38rpx;
+				height: 38rpx;
+				margin-right: 10rpx;
+				margin-top: 7rpx;
+			}
+			.desc{
+				color: #999;
+				font-style: 32rpx;
+			}
+		}
+	}
+}
+
+.checkin-report{
+	background-color: #fff;
+	padding: 35rpx;
+	.big-icon{
+		width: 250rpx;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 20rpx;
+	}
+	.report-title{
+		display: flex;
+		justify-content: center;
+		margin-top: 20rpx;
+		.days{
+			font-size: 60rpx;
+			color: #333;
+		}
+		.unit{
+			margin-left: 10rpx;
+			margin-top: 33rpx;
+		}
+	}
+	.sub-title{
+		font-size: 34rpx;
+		color: #333;
+		text-align: center;
+		margin-top: 10rpx;
+		position: relative;
+		text{
+			background-color: #fff;
+			z-index: 9999;
+			position: relative;
+			padding: 0 30rpx;
+		}
+		.line{
+			height: 0;
+			width: 100%;
+			border-bottom: solid #e5e5e5 2rpx;
+			position: absolute;
+			top: 25rpx;
+		}
+	}
+	.calendar-container{
+		display: flex;
+		justify-content: space-between;
+		margin-top: 30rpx;
+		.calendar{
+			text-align: center;
+			flex-grow: 0;
+			flex-shrink: 0;
+			.calendar-icon{
+				width: 70rpx;
+				display: block;
+				margin-bottom: 5rpx;
+			}
+			.day{
+				font-size: 32rpx;
+				color: #333;
+				display: block;
+			}
+			.result{
+				display: block;
+				font-size: 26rpx;
+				background-color: #555;
+				color: #fff;
+				height: 42rpx;
+				line-height: 42rpx;
+				padding: 0 5rpx;
+				border-radius: 8rpx;
+				margin-top: 10rpx;
+			}
+		}
 	}
 }

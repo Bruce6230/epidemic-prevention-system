@@ -28,4 +28,6 @@ public interface TbUserDao {
 
     public TbUser searchById(int userId);
 
+    public String searchUserHiredate(int userId);
+
 }
