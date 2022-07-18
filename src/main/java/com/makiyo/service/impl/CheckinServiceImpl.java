@@ -140,57 +140,56 @@ public class CheckinServiceImpl implements CheckinService {
             else if("True".equals(body)){
                 //查询疫情风险等级
                 //默认低风险
-                //插入下面代码段
-                System.out.println("人脸识别成功");
-            }
-        }
-        int risk = 1;
-        String city = (String) param.get("city");
-        String district = (String) param.get("district");
-        if(!StrUtil.isBlank(city)&&!StrUtil.isBlank(district))
-        {
-            //查询该城市的code
-            String code = tbCityDao.searchCode(city);
-            try {
-                String url = "http://m."+code+".bendibao.com/news/yqdengji/?qu="+district;
-                Document document = Jsoup.connect(url).get();
-                Elements elements = document.getElementsByClass("list-content");
-                if(elements.size()>0)
+                int risk = 1;
+                String city = (String) param.get("city");
+                String district = (String) param.get("district");
+                String address = (String) param.get("address");
+                String country = (String) param.get("country");
+                String province = (String) param.get("province");
+                if(!StrUtil.isBlank(city)&&!StrUtil.isBlank(district))
                 {
-                    Element element = elements.get(0);
-                    String result = element.select("p:last-child").text();
-                    if("高风险".equals(result))
-                    {
-                        //3代表高风险
-                        risk=3;
-                        //发送告警邮件
+                    //查询该城市的code
+                    String code = tbCityDao.searchCode(city);
+                    try {
+                        String url = "http://m."+code+".bendibao.com/news/yqdengji/?qu="+district;
+                        Document document = Jsoup.connect(url).get();
+                        Elements elements = document.getElementsByClass("list-content");
+                        if(elements.size()>0)
+                        {
+                            Element element = elements.get(0);
+                            String result = element.select("p:last-child").text();
+                            if("高风险".equals(result))
+                            {
+                                //3代表高风险
+                                risk=3;
+                                //发送告警邮件
 
-                    }else if("中风险".equals(result)){
-                        //2代表中风险
-                        risk=2;
+                            }else if("中风险".equals(result)){
+                                //2代表中风险
+                                risk=2;
 
+                            }
+                        }
+                    }catch (Exception e){
+                        log.error("执行异常",e);
+                        throw new EpsException("获取风险等级失败");
                     }
                 }
-            }catch (Exception e){
-                log.error("执行异常",e);
-                throw new EpsException("获取风险等级失败");
+                //保存签到记录
+                TbCheckin entity=new TbCheckin();
+                entity.setUserId(userId);
+                entity.setAddress(address);
+                entity.setCountry(country);
+                entity.setProvince(province);
+                entity.setCity(city);
+                entity.setDistrict(district);
+                entity.setRisk(risk);
+                entity.setStatus((byte) status);
+                entity.setDate(DateUtil.today());
+                entity.setCreateTime(d1);
+                tbCheckinDao.insert(entity);
             }
         }
-        //保存签到记录
-        String address = (String) param.get("address");
-        String country = (String) param.get("country");
-        String province = (String) param.get("province");
-        TbCheckin entity=new TbCheckin();
-        entity.setUserId(userId);
-        entity.setAddress(address);
-        entity.setCountry(country);
-        entity.setProvince(province);
-        entity.setCity(city);
-        entity.setDistrict(district);
-        entity.setStatus((byte) status);
-        entity.setDate(DateUtil.today());
-        entity.setCreateTime(d1);
-        tbCheckinDao.insert(entity);
     }
 
     @Override

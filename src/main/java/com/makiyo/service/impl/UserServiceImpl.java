@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private TbUserDao userDao;
-
+//    暂未完成
     private String getOpenId(String code){
 //        String url="https://api.weixin.qq.com/sns/jscode2session";
         HashMap map=new HashMap();

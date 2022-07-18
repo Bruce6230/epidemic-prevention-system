@@ -150,7 +150,9 @@
 													uni.showToast({
 														title:"签到成功",
 														complete:function(){
-															
+															uni.navigateTo({
+																url:".../checkin_result/checkin_result"
+															})
 														}
 													})
 												}

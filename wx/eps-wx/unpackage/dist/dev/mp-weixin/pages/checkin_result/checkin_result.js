@@ -203,27 +203,37 @@ var _default =
 {
   data: function data() {
     return {
-      name: "GentlemanLin",
-      photo: "../../static/user.png",
-      deptName: "管理部",
-      address: "重庆市",
-      status: "正常",
-      risk: "中风险",
-      checkinTime: "8:25",
-      date: "2022年7月14日",
-      attendanceTime: "8:30",
-      closingTime: "17:30",
-      checkinDays: 201,
-      weekCheckin: [
-      { type: "工作日", day: "周一", status: "正常" },
-      { type: "工作日", day: "周二", status: "正常" },
-      { type: "工作日", day: "周三", status: "正常" },
-      { type: "工作日", day: "周四", status: "正常" },
-      { type: "工作日", day: "周五", status: "正常" },
-      { type: "休息日", day: "周六", status: "" },
-      { type: "休息日", day: "周日", status: "" }] };
+      name: "",
+      photo: "",
+      deptName: "",
+      address: "",
+      status: "",
+      risk: "",
+      checkinTime: "",
+      date: "",
+      attendanceTime: "",
+      closingTime: "",
+      checkinDays: 0,
+      weekCheckin: [] };
 
-
+  },
+  onShow: function onShow() {
+    var that = this;
+    that.ajax(that.url.searchTodayCheckin, "GET", null, function (response) {
+      var result = response.data.result;
+      that.name = result.name;
+      that.photo = result.photo;
+      that.deptName = result.deptName;
+      that.date = result.date;
+      that.attendanceTime = result.attendanceTime;
+      that.closingTime = result.closingTime;
+      that.checkinTime = result.checkinTime;
+      that.status = result.status;
+      that.risk = result.risk;
+      that.address = result.address;
+      that.checkinDays = result.checkinDays;
+      that.weekCheckin = result.weekCheckin;
+    });
   },
   methods: {} };exports.default = _default;
 

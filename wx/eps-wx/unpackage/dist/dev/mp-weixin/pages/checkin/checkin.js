@@ -282,6 +282,8 @@ var txmapsdk;var _default =
                         uni.showToast({
                           title: "签到成功",
                           complete: function complete() {
+                            uni.navigateTo({
+                              url: ".../checkin_result/checkin_result" });
 
                           } });
 
