@@ -39,7 +39,8 @@ _vue.default.prototype.url = {
   createFaceModel: BaseUrl + "/checkin/createFaceModel",
   validCanCheckIn: BaseUrl + "/checkin/validCanCheckIn",
   searchTodayCheckin: BaseUrl + "/checkin/searchTodayCheckin",
-  searchUserSummary: BaseUrl + "/user/searchUserSummary" };
+  searchUserSummary: BaseUrl + "/user/searchUserSummary",
+  searchMonthCheckin: BaseUrl + "/checkin/searchMonthCheckin" };
 
 
 _vue.default.prototype.checkPermission = function (perms) {

@@ -6,6 +6,7 @@ import cn.hutool.core.io.FileUtil;
 import com.makiyo.config.SystemConstants;
 import com.makiyo.exception.EpsException;
 import com.makiyo.form.CheckinForm;
+import com.makiyo.form.SearchMonthCheckinForm;
 import com.makiyo.service.CheckinService;
 import com.makiyo.service.UserService;
 import com.makiyo.utils.JwtUtil;
@@ -151,5 +152,43 @@ public class CheckinController {
         ArrayList<HashMap> list=checkinService.searchWeekCheckin(param);
         map.put("weekCheckin",list);
         return Response.ok().put("result",map);
+    }
+
+    @PostMapping("/searchMonthCheckin")
+    @ApiOperation("查询用户某月签到数据")
+    public Response searchMonthCheckin(@Valid @RequestBody SearchMonthCheckinForm form, @RequestHeader("token") String token){
+        int userId=jwtUtil.getUserId(token);
+        DateTime hiredate=DateUtil.parse(userService.searchUserHiredate(userId));
+        String month=form.getMonth()<10?"0"+form.getMonth():form.getMonth().toString();
+        DateTime startDate=DateUtil.parse(form.getYear()+"-"+month+"-01");
+        if(startDate.isBefore(DateUtil.beginOfMonth(hiredate))){
+            throw new EpsException("只能查询考勤之后日期的数据");
+        }
+        if(startDate.isBefore(hiredate)){
+            startDate=hiredate;
+        }
+        DateTime endDate=DateUtil.endOfMonth(startDate);
+        HashMap param=new HashMap();
+        param.put("userId",userId);
+        param.put("startDate",startDate.toString());
+        param.put("endDate",endDate.toString());
+        ArrayList<HashMap> list=checkinService.searchMonthCheckin(param);
+        int sum_1=0,sum_2=0,sum_3=0;
+        for(HashMap<String,String> one:list){
+            String type=one.get("type");
+            String status=one.get("status");
+            if("工作日".equals(type)){
+                if("正常".equals(status)){
+                    sum_1++;
+                }
+                else if("迟到".equals(status)){
+                    sum_2++;
+                }
+                else if("缺勤".equals(status)){
+                    sum_3++;
+                }
+            }
+        }
+        return Response.ok().put("list",list).put("sum_1",sum_1).put("sum_2",sum_2).put("sum_3",sum_3);
     }
 }

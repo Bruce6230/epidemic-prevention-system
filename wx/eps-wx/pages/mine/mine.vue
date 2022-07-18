@@ -21,7 +21,7 @@
 		<view class="list-title">用户信息</view>
 		<uni-list>
 			<uni-list-item title="个人资料" link to=""></uni-list-item>
-			<uni-list-item title="我的考勤" link to="/pages/my_checkin/my_checkin"></uni-list-item>
+			<uni-list-item title="我的考勤" link to="/pages/mine_checkin/mine_checkin"></uni-list-item>
 			<uni-list-item title="罚款记录" link to=""></uni-list-item>
 		</uni-list>
 		<view class="list-title">系统管理</view>
