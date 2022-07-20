@@ -61,5 +61,6 @@
       "desc": "请先选择景点，我们将为您提供精准查找"
     }
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap90.json"
 }
