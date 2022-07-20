@@ -15,12 +15,14 @@
   "window": {
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "EPS简疫办公",
-    "navigationBarBackgroundColor": "#3473FF",
-    "backgroundColor": "#EEEEF4"
+    "navigationBarBackgroundColor": "#6A5ACD",
+    "backgroundColor": "#EEEEF4",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "color": "#666",
-    "selectedColor": "#3474FF",
+    "selectedColor": "#9370DB",
     "list": [
       {
         "text": "首页",

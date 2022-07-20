@@ -23,7 +23,7 @@
   position: absolute;
   bottom: 20%;
   left: 20%;
-  background-color: #3474FF;
+  background-color: #9370DB;
   color: #fff;
   box-sizing: border-box;
 }
@@ -39,6 +39,6 @@
   color: #333;
 }
 .register-container .register {
-  color: #3474FF;
+  color: #9370DB;
 }
 
