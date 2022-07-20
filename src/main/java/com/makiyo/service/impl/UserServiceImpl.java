@@ -1,12 +1,15 @@
 package com.makiyo.service.impl;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.makiyo.dao.TbUserDao;
+import com.makiyo.entity.MessageEntity;
 import com.makiyo.exception.EpsException;
 import com.makiyo.pojo.TbUser;
 import com.makiyo.service.UserService;
+import com.makiyo.task.MessageTask;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private TbUserDao userDao;
+
+    @Autowired
+    private MessageTask messageTask;
 //    暂未完成
     private String getOpenId(String code){
 //        String url="https://api.weixin.qq.com/sns/jscode2session";
@@ -67,6 +73,13 @@ public class UserServiceImpl implements UserService {
                 param.put("root", true);
                 userDao.insert(param);
                 int id=userDao.searchIdByOpenId(openId);
+                MessageEntity entity=new MessageEntity();
+                entity.setSenderId(0);
+                entity.setSenderName("系统消息");
+                entity.setUuid(IdUtil.simpleUUID());
+                entity.setMsg("欢迎您注册成为超级管理员，请及时更新你的员工个人信息。");
+                entity.setSendTime(new Date());
+                messageTask.sendAsync(id+"",entity);
                 return id;
             }
             else{

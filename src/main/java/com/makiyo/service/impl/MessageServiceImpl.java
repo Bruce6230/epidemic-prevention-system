@@ -16,7 +16,6 @@ import java.util.List;
  * @date 2022/7/21 1:52
  */
 @Service
-
 public class MessageServiceImpl implements MessageService {
     @Autowired
     private MessageDao messageDao;
@@ -76,11 +75,5 @@ public class MessageServiceImpl implements MessageService {
     public long deleteUserMessageRef(int userId) {
         long rows=messageRefDao.deleteUserMessageRef(userId);
         return rows;
-    }
-
-    @Override
-    public String insert(MessageEntity entity) {
-        String id = messageDao.insert(entity);
-        return id;
     }
 }

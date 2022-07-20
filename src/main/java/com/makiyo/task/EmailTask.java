@@ -1,4 +1,4 @@
-package com.makiyo.email;
+package com.makiyo.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

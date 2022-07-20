@@ -19,8 +19,6 @@ public interface MessageService {
 
     public String insertRef(MessageRefEntity entity);
 
-    public String insert(MessageEntity entity);
-
     public long searchUnreadCount(int userId);
 
     public long searchLastCount(int userId);
