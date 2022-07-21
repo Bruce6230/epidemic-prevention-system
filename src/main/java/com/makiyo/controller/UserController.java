@@ -3,17 +3,21 @@ package com.makiyo.controller;
 import cn.hutool.core.util.StrUtil;
 import com.makiyo.form.LoginForm;
 import com.makiyo.form.RegisterForm;
+import com.makiyo.form.SearchUserGroupByDeptForm;
 import com.makiyo.service.UserService;
 import com.makiyo.utils.JwtUtil;
 import com.makiyo.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -69,5 +73,13 @@ public class UserController {
 
     private void saveCacheToken(String token,int userId) {
         redisTemplate.opsForValue().set(token, userId + "", cacheExpire, TimeUnit.DAYS);
+    }
+
+    @PostMapping("/searchUserGroupByDept")
+    @ApiOperation("查询员工列表，按照部门分组排列")
+    @RequiresPermissions(value = {"ROOT","EMPLOYEE:SELECT"},logical = Logical.OR)
+    public Response searchUserGroupByDept(@Valid @RequestBody SearchUserGroupByDeptForm form){
+        ArrayList<HashMap> list=userService.searchUserGroupByDept(form.getKeyword());
+        return Response.ok().put("result",list);
     }
 }

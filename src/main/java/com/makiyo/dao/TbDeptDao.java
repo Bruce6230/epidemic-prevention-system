@@ -3,6 +3,9 @@ package com.makiyo.dao;
 import com.makiyo.pojo.TbDept;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 @Mapper
 public interface TbDeptDao {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +19,6 @@ public interface TbDeptDao {
     int updateByPrimaryKeySelective(TbDept record);
 
     int updateByPrimaryKey(TbDept record);
+
+    public ArrayList<HashMap> searchDeptMembers(String keyword);
 }

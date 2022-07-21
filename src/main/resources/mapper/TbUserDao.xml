@@ -262,4 +262,26 @@
     from tb_user u left join tb_dept d on u.dept_id=d.id
     where u.id=#{userId} and u.status=1
   </select>
+  <select id="searchUserGroupByDept" parameterType="String" resultType="HashMap">
+    SELECT
+    d.id AS deptId,
+    d.dept_name AS deptName,
+    u.id AS userId,
+    u.name
+    FROM tb_dept d JOIN tb_user u ON u.dept_id=d.id
+    WHERE u.status=1
+    <if test="keyword!=null">
+      AND u.name LIKE '%${keyword}%'
+    </if>
+    ORDER BY d.id, u.id;
+  </select>
+  <select id="searchMembers" parameterType="list" resultType="HashMap">
+    SELECT id,name,photo
+    FROM tb_user
+    WHERE status = 1
+    AND id IN
+    <foreach collection="list" item="one" separator="," open="(" close=")">
+      #{one}
+    </foreach>
+  </select>
 </mapper>

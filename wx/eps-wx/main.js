@@ -32,6 +32,24 @@ Vue.prototype.url={
 	searchTodayCheckin: BaseUrl + "/checkin/searchTodayCheckin",
 	searchUserSummary: BaseUrl + "/user/searchUserSummary",
 	searchMonthCheckin: BaseUrl + "/checkin/searchMonthCheckin",
+	refreshMessage: BaseUrl + "/message/refreshMessage",
+	searchMessageByPage: BaseUrl + "/message/searchMessageByPage",
+	searchMessageById: BaseUrl + "/message/searchMessageById",
+	updateUnreadMessage: BaseUrl + "/message/updateUnreadMessage",
+	deleteMessageRefById: BaseUrl + "/message/deleteMessageRefById",
+	searchMyMeetingListByPage: BaseUrl + "/meeting/searchMyMeetingListByPage",
+	searchUserGroupByDept: BaseUrl + "/user/searchUserGroupByDept",
+	searchMembers: BaseUrl + "/user/searchMembers",
+	insertMeeting: BaseUrl + "/meeting/insertMeeting",
+	searchMeetingById:BaseUrl+"/meeting/searchMeetingById",
+	updateMeetingInfo: BaseUrl + "/meeting/updateMeetingInfo",
+	deleteMeetingById:BaseUrl+"/meeting/deleteMeetingById",
+	searchUserTaskListByPage:workflow+"/workflow/searchUserTaskListByPage",
+	approvalMeeting:workflow+"/workflow/approvalMeeting",
+	selectUserPhotoAndName:BaseUrl+"/user/selectUserPhotoAndName",
+	genUserSig: BaseUrl + "/user/genUserSig",
+	searchRoomIdByUUID: BaseUrl + "/meeting/searchRoomIdByUUID",
+	searchUserMeetingInMonth:BaseUrl+"/meeting/searchUserMeetingInMonth"
 }
 
 Vue.prototype.checkPermission = function(perms) {

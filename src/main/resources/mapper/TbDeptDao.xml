@@ -84,4 +84,15 @@
       `desc` = #{desc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="searchDeptMembers" parameterType="String" resultType="HashMap">
+    SELECT
+    d.id,
+    d.dept_name AS deptName,
+    COUNT(u.id) AS count
+    FROM tb_dept d LEFT JOIN tb_user u ON u.dept_id=d.id AND u.status=1
+    <if test="keyword!=null">
+      WHERE u.name LIKE '%${keyword}%'
+    </if>
+    GROUP BY d.id
+  </select>
 </mapper>

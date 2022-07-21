@@ -3,7 +3,10 @@ package com.makiyo.dao;
 import com.makiyo.pojo.TbUser;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 @Mapper
@@ -31,4 +34,8 @@ public interface TbUserDao {
     public String searchUserHiredate(int userId);
 
     public HashMap searchUserSummary(int userId);
+
+    public ArrayList<HashMap> searchUserGroupByDept(String keyword);
+
+    public ArrayList<HashMap> searchMembers(List param);
 }
