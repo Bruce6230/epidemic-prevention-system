@@ -5,6 +5,7 @@ import com.makiyo.form.SearchMessageByIdForm;
 import com.makiyo.form.SearchMessageByPageForm;
 import com.makiyo.form.UpdateUnreadMessageForm;
 import com.makiyo.service.MessageService;
+import com.makiyo.task.MessageTask;
 import com.makiyo.utils.JwtUtil;
 import com.makiyo.utils.Response;
 import io.swagger.annotations.ApiOperation;
@@ -29,8 +30,8 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
-//    @Autowired
-//    private MessageTask messageTask;
+    @Autowired
+    private MessageTask messageTask;
 
     @PostMapping("/searchMessageByPage")
     @ApiOperation("获取分页消息列表")
@@ -64,13 +65,13 @@ public class MessageController {
         return Response.ok().put("result", rows == 1 ? true : false);
     }
 
-//    @GetMapping("/refreshMessage")
-//    @ApiOperation("刷新用户消息")
-//    public Response refreshMessage(@RequestHeader("token") String token){
-//        int userId=jwtUtil.getUserId(token);
-//        messageTask.receiveAsync(userId+"");
-//        long lastRows=messageService.searchLastCount(userId);
-//        long unreadRows=messageService.searchUnreadCount(userId);
-//        return Response.ok().put("lastRows",lastRows).put("unreadRows",unreadRows);
-//    }
+    @GetMapping("/refreshMessage")
+    @ApiOperation("刷新用户消息")
+    public Response refreshMessage(@RequestHeader("token") String token){
+        int userId=jwtUtil.getUserId(token);
+        messageTask.receiveAsync(userId+"");
+        long lastRows=messageService.searchLastCount(userId);
+        long unreadRows=messageService.searchUnreadCount(userId);
+        return Response.ok().put("lastRows",lastRows).put("unreadRows",unreadRows);
+    }
 }

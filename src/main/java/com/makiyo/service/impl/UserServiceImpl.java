@@ -106,6 +106,7 @@ public class UserServiceImpl implements UserService {
         {
             throw new EpsException("账户不存在");
         }
+//        messageTask.receiveAsync(id+"");
         return id;
     }
 
