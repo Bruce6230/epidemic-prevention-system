@@ -107,7 +107,7 @@
             
         }
         ,{
-            "path" : "pages/metting_list/metting_list",
+            "path" : "pages/meeting_list/meeting_list",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -145,7 +145,7 @@
 				},
 				{
 					"text": "会议",
-					"pagePath": "pages/meeting/meeting",
+					"pagePath": "pages/meeting_list/meeting_list",
 					"iconPath": "static/bar-2.png",
 					"selectedIconPath": "static/bar-2-active.png"
 				},

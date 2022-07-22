@@ -9,7 +9,11 @@
     "pages/mine/mine",
     "pages/checkin/checkin",
     "pages/checkin_result/checkin_result",
-    "pages/mine_checkin/mine_checkin"
+    "pages/mine_checkin/mine_checkin",
+    "pages/message_list/message_list",
+    "pages/message/message",
+    "pages/meeting_list/meeting_list",
+    "pages/members/members"
   ],
   "subPackages": [],
   "window": {
@@ -32,7 +36,7 @@
       },
       {
         "text": "会议",
-        "pagePath": "pages/meeting/meeting",
+        "pagePath": "pages/meeting_list/meeting_list",
         "iconPath": "static/bar-2.png",
         "selectedIconPath": "static/bar-2-active.png"
       },

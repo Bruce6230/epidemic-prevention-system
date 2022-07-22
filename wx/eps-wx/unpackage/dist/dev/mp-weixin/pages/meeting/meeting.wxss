@@ -1,1 +1,101 @@
+.page {
+  padding: 35rpx 0;
+}
+.header {
+  position: relative;
+  padding: 0 35rpx;
+}
+.header .title {
+  border-bottom: solid 1rpx #f0f0f0;
+  padding: 30rpx 15rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #6A5ACD;
+}
+.header .title-placeholder {
+  font-size: 34rpx;
+}
+.header .edit-icon {
+  width: 40rpx;
+  position: absolute;
+  right: 45rpx;
+  top: 35rpx;
+}
+.attr {
+  padding: 0 35rpx;
+  border-bottom: solid 20rpx #EEEEF4;
+}
+.attr .list .item {
+  padding: 30rpx 10rpx 30rpx 15rpx;
+  border-bottom: solid 1rpx #f0f0f0;
+  font-size: 30rpx;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+}
+.attr .list .item .value {
+  display: block;
+  color: #333;
+}
+.attr .desc {
+  display: block;
+  font-size: 30rpx;
+  padding: 30rpx 10rpx 30rpx 15rpx;
+  color: #333;
+  line-height: 1.6;
+}
+.members {
+  padding: 45rpx 25rpx;
+}
+.members .number {
+  margin-bottom: 35rpx;
+  color: #6A5ACD;
+  font-size: 34rpx;
+  font-weight: bold;
+  padding-left: 20rpx;
+}
+.members .member {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.members .member .user {
+  width: 100rpx;
+  text-align: center;
+  max-width: 20%;
+  min-width: 20%;
+  margin-bottom: 40rpx;
+}
+.members .member .user .photo {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+  margin-bottom: 5rpx;
+}
+.members .member .user .name {
+  font-size: 30rpx;
+  color: #333;
+  display: block;
+  text-align: center;
+}
+.members .member .add {
+  width: 100rpx;
+  max-width: 20%;
+  min-width: 20%;
+  margin-bottom: 40rpx;
+}
+.members .member .add .add-btn {
+  width: 100rpx;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn {
+  margin: 0 35rpx 35rpx 55rpx;
+  background-color: #6A5ACD;
+  color: #fff;
+}
+.btn:active {
+  background-color: dodgerblue;
+}
 

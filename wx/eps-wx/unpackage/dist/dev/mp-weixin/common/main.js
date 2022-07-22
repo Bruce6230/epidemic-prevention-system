@@ -40,7 +40,14 @@ _vue.default.prototype.url = {
   validCanCheckIn: BaseUrl + "/checkin/validCanCheckIn",
   searchTodayCheckin: BaseUrl + "/checkin/searchTodayCheckin",
   searchUserSummary: BaseUrl + "/user/searchUserSummary",
-  searchMonthCheckin: BaseUrl + "/checkin/searchMonthCheckin" };
+  searchMonthCheckin: BaseUrl + "/checkin/searchMonthCheckin",
+  refreshMessage: BaseUrl + "/message/refreshMessage",
+  searchMessageByPage: BaseUrl + "/message/searchMessageByPage",
+  searchMessageById: BaseUrl + "/message/searchMessageById",
+  updateUnreadMessage: BaseUrl + "/message/updateUnreadMessage",
+  deleteMessageRefById: BaseUrl + "/message/deleteMessageRefById",
+  searchMyMeetingListByPage: BaseUrl + "/meeting/searchMyMeetingListByPage",
+  searchUserGroupByDept: BaseUrl + "/user/searchUserGroupByDept" };
 
 
 _vue.default.prototype.checkPermission = function (perms) {

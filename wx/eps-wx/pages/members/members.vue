@@ -32,8 +32,8 @@ export default {
 	},
 	methods: {
 		loadData:function(ref){
-			ref.ajax(ref.url.searchUserGroupByDept,"POST",{keyword:ref.keyword},function(resp){
-				let result=resp.data.result
+			ref.ajax(ref.url.searchUserGroupByDept,"POST",{keyword:ref.keyword},function(response){
+				let result=response.data.result
 				ref.list=result
 				for(let dept of ref.list){
 					for(let member of dept.members){

@@ -1,0 +1,12 @@
+.page {
+  padding: 0;
+}
+.chat-custom-right {
+  position: absolute;
+  right: 20rpx;
+}
+.chat-custom-right .chat-custom-text {
+  color: #999;
+  font-size: 24rpx;
+}
+

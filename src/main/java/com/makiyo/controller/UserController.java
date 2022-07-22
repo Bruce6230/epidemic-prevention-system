@@ -1,8 +1,11 @@
 package com.makiyo.controller;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
+import com.makiyo.exception.EpsException;
 import com.makiyo.form.LoginForm;
 import com.makiyo.form.RegisterForm;
+import com.makiyo.form.SearchMembersForm;
 import com.makiyo.form.SearchUserGroupByDeptForm;
 import com.makiyo.service.UserService;
 import com.makiyo.utils.JwtUtil;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -80,6 +84,18 @@ public class UserController {
     @RequiresPermissions(value = {"ROOT","EMPLOYEE:SELECT"},logical = Logical.OR)
     public Response searchUserGroupByDept(@Valid @RequestBody SearchUserGroupByDeptForm form){
         ArrayList<HashMap> list=userService.searchUserGroupByDept(form.getKeyword());
+        return Response.ok().put("result",list);
+    }
+
+    @PostMapping("/searchMembers")
+    @ApiOperation("查询成员")
+    @RequiresPermissions(value = {"ROOT", "MEETING:INSERT", "MEETING:UPDATE"},logical = Logical.OR)
+    public Response searchMembers(@Valid @RequestBody SearchMembersForm form){
+        if(!JSONUtil.isJsonArray(form.getMembers())){
+            throw new EpsException("members不是JSON数组");
+        }
+        List param=JSONUtil.parseArray(form.getMembers()).toList(Integer.class);
+        ArrayList list=userService.searchMembers(param);
         return Response.ok().put("result",list);
     }
 }

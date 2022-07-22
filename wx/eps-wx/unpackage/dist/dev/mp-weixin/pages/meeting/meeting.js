@@ -93,10 +93,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uniPopup: function() {
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 125))
+    }
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var m0 = _vm.checkPermission(["ROOT", "MEETING:INSERT", "MEETING:UPDATE"])
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -130,20 +162,274 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-var _default =
-{
-  data: function data() {
-    return {};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 125));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupMessage = function uniPopupMessage() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-message */ "components/uni-popup/uni-popup-message").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-message.vue */ 134));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 141));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  components: {
+    uniPopup: uniPopup,
+    uniPopupMessage: uniPopupMessage,
+    uniPopupDialog: uniPopupDialog },
+
+  data: function data() {
+    return {
+      opt: null,
+      id: null,
+      uuid: null,
+      canEdit: true,
+      title: '',
+      date: '',
+      start: '',
+      end: '',
+      typeArray: ['线上会议', '线下会议'],
+      typeIndex: 0,
+      place: '',
+      desc: '会议内容',
+      members: [],
+      instanceId: null };
 
   },
-  methods: {} };exports.default = _default;
+  onShow: function onShow() {
+    var that = this;
+    var pages = getCurrentPages();
+    var currPage = pages[pages.length - 1];
+    if (!currPage.hasOwnProperty("finishMembers") || !currPage.finishMembers) {
+      if (that.opt == "insert") {
+        var now = new Date();
+        now.setTime(now.getTime() + 30 * 60 * 1000);
+        that.date = now.format("yyyy-MM-dd");
+        that.start = now.format("hh:mm");
+        now.setTime(now.getTime() + 60 * 60 * 1000);
+        that.end = now.format("hh:mm");
+      } else
+      if (that.opt == "edit") {
+        that.ajax(that.url.searchMeetingById, "POST", { id: that.id }, function (resp) {
+          var result = resp.data.result;
+          that.uuid = result.uuid;
+          that.title = result.title;
+          that.date = result.date;
+          that.start = result.start;
+          that.end = result.end;
+          that.typeIndex = result.type - 1;
+          that.place = result.place;
+          var desc = result.desc;
+          if (desc != null && desc != '') {
+            that.desc = desc;
+          }
+          that.members = result.members;
+          that.instanceId = result.instanceId;
+        });
+      }
+    } else {
+      var members = [];var _iterator = _createForOfIteratorHelper(
+      currPage.members),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var one = _step.value;
+          members.push(Number(one));
+        }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+      that.ajax(that.url.searchMembers, "POST", { members: JSON.stringify(members) }, function (resp) {
+        var result = resp.data.result;
+        that.members = result;
+      });
+    }
+  },
+  onLoad: function onLoad(options) {
+    this.id = options.id;
+    this.opt = options.opt;
+  },
+  methods: {
+    toMembersPage: function toMembersPage() {
+      var array = [];var _iterator2 = _createForOfIteratorHelper(
+      this.members),_step2;try {for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {var one = _step2.value;
+          array.push(one.id);
+        }} catch (err) {_iterator2.e(err);} finally {_iterator2.f();}
+      uni.navigateTo({
+        url: "../members/members?members=" + array.join(",") });
+
+    },
+    dateChange: function dateChange(e) {
+      this.date = e.detail.value;
+    },
+    startChange: function startChange(e) {
+      this.start = e.detail.value;
+    },
+    endChange: function endChange(e) {
+      this.end = e.detail.value;
+    },
+    typeChange: function typeChange(e) {
+      this.typeIndex = e.detail.value;
+    },
+    editPlace: function editPlace() {
+      if (!this.canEdit) {
+        return;
+      }
+      this.$refs.popupPlace.open();
+    },
+    finishPlace: function finishPlace(done, value) {
+      if (value != null && value != "") {
+        this.place = value;
+        done();
+      } else
+      {
+        uni.showToast({
+          icon: "none",
+          title: "地点不能为空" });
+
+      }
+    },
+    editDesc: function editDesc() {
+      if (!this.canEdit) {
+        return;
+      }
+      this.$refs.popupDesc.open();
+    },
+    finishDesc: function finishDesc(done, value) {
+      if (value != null && value != "") {
+        this.desc = value;
+        done();
+      } else
+      {
+        uni.showToast({
+          icon: "none",
+          title: "内容不能为空" });
+
+      }
+    },
+    save: function save() {
+      var that = this;
+      var array = [];var _iterator3 = _createForOfIteratorHelper(
+      that.members),_step3;try {for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {var one = _step3.value;
+          array.push(one.id);
+        }} catch (err) {_iterator3.e(err);} finally {_iterator3.f();}
+      if (
+      that.checkBlank(that.title, "会议题目") ||
+      that.checkValidStartAndEnd(that.start, that.end) ||
+      that.typeIndex == "1" && that.checkBlank(that.place, "会议地点") ||
+      that.checkBlank(that.desc, "会议内容") ||
+      array.length == 0)
+      {
+        return;
+      }
+      var data = {
+        title: that.title,
+        date: that.date,
+        start: that.start,
+        end: that.end,
+        type: Number(that.typeIndex) + 1,
+        members: JSON.stringify(array),
+        desc: that.desc,
+        id: that.id,
+        instanceId: that.instanceId };
+
+      if (that.typeIndex == "1") {
+        data.place = that.place;
+      }
+      var url;
+      if (that.opt == "insert") {
+        url = that.url.insertMeeting;
+      } else
+      if (that.opt == "edit") {
+        url = that.url.updateMeetingInfo;
+      }
+      that.ajax(url, "POST", data, function (resp) {
+        uni.showToast({
+          icon: "success",
+          title: "保存成功",
+          complete: function complete() {
+            setTimeout(function () {
+              uni.navigateBack({});
+
+
+            }, 2000);
+          } });
+
+      });
+    },
+    deleteMember: function deleteMember(id) {
+      var that = this;
+      uni.vibrateShort({});
+      uni.showModal({
+        title: "提示信息",
+        content: "删除该名参会人员？",
+        success: function success(resp) {
+          var postion;
+          for (var i = 0; i < that.members.length; i++) {
+            var one = that.members[i];
+            if (one.id == id) {
+              postion = i;
+              break;
+            }
+          }
+          that.members.splice(postion, 1);
+        } });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
