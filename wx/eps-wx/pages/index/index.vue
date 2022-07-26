@@ -42,7 +42,7 @@
 				</view>
 				<view class="nav">
 					<image src="../../static/nav-2.png" mode="widthFix" class="icon"></image>
-					<text class="name">员工健康</text>
+					<text class="name">疲劳驾驶</text>
 				</view>
 				<view class="nav">
 					<image src="../../static/nav-3.png" mode="widthFix" class="icon"></image>

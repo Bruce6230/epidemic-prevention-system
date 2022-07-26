@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "我的考勤",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "uni-calendar": "/components/uni-calendar/uni-calendar"
-  }
-}

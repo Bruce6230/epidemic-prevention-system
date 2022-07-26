@@ -136,7 +136,7 @@
 	},
 	"tabBar": {
 			"color": "#666",
-			"selectedColor": "#9370DB",
+			"selectedColor": "#BA9BC9",
 			"list": [{
 					"text": "首页",
 					"pagePath": "pages/index/index",
