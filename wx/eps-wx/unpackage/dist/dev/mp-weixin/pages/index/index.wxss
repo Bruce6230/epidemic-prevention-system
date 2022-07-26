@@ -1,0 +1,93 @@
+/* .content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.logo {
+	height: 200rpx;
+	width: 200rpx;
+	margin-top: 200rpx;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 50rpx;
+}
+
+.text-area {
+	display: flex;
+	justify-content: center;
+}
+
+.title {
+	font-size: 36rpx;
+	color: #8f8f94;
+} */
+.page {
+  background-color: #EEEEF4;
+}
+.swiper {
+  height: 233px;
+}
+.swiper image {
+  width: 100%;
+}
+.notify-container {
+  background-color: #fff;
+  padding: 25rpx;
+  position: relative;
+  margin-bottom: 20rpx;
+}
+.notify-container .notify-title {
+  font-size: 34rpx;
+  color: #6A5ACD;
+  margin-bottom: 10rpx;
+}
+.notify-container .notify-title .notify-icon {
+  width: 38rpx;
+  margin-right: 5rpx;
+  vertical-align: -8rpx;
+}
+.notify-container .notify-content {
+  font-size: 30rpx;
+  color: #333;
+}
+.notify-container .notify-content:before {
+  display: inline-block;
+  content: "";
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 6rpx;
+  background-color: red;
+  margin-left: 18rpx;
+  margin-right: 15rpx;
+  vertical-align: 3rpx;
+}
+.notify-container .more-icon {
+  position: absolute;
+  right: 5rpx;
+  top: 50rpx;
+  width: 60rpx;
+}
+.nav-container {
+  background-color: #fff;
+  margin-bottom: 20rpx;
+  padding: 50rpx 40rpx;
+}
+.nav-container .nav-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50rpx;
+}
+.nav-container .nav-row .nav {
+  text-align: center;
+}
+.nav-container .nav-row .nav .icon {
+  width: 80rpx;
+}
+.nav-container .nav-row .nav .name {
+  display: block;
+  font-size: 30rpx;
+  color: #333;
+}
+

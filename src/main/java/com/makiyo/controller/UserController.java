@@ -1,12 +1,8 @@
 package com.makiyo.controller;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.makiyo.exception.EpsException;
-import com.makiyo.form.LoginForm;
-import com.makiyo.form.RegisterForm;
-import com.makiyo.form.SearchMembersForm;
-import com.makiyo.form.SearchUserGroupByDeptForm;
+import com.makiyo.form.*;
 import com.makiyo.service.UserService;
 import com.makiyo.utils.JwtUtil;
 import com.makiyo.utils.Response;
@@ -97,5 +93,21 @@ public class UserController {
         List param=JSONUtil.parseArray(form.getMembers()).toList(Integer.class);
         ArrayList list=userService.searchMembers(param);
         return Response.ok().put("result",list);
+    }
+
+    @PostMapping("/webLogin")
+    @ApiOperation("web端登录系统")
+    public Response webLogin(@Valid @RequestBody WebLoginForm form)
+    {
+        HashMap param = JSONUtil.parse(form).toBean(HashMap.class);
+        Integer userId = userService.webLogin(param);
+        Response response = Response.ok().put("result",userId != null ? true : false);
+        if(userId != null){
+            String token = jwtUtil.createToken(userId);
+            saveCacheToken(token,userId);
+            Set<String> permissions = userService.searchUserPermissions(userId);
+            response.put("permissions",permissions);
+        }
+        return response;
     }
 }

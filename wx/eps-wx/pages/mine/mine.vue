@@ -14,7 +14,9 @@
 				</view>
 				<view>
 					<text class="title">状态</text>
-					<text class="value">在职</text>
+					<text class="value">
+						在职
+					</text>
 				</view>
 			</view>
 		</view>

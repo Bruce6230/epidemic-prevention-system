@@ -1,0 +1,63 @@
+.green {
+  background-color: #35C895 !important;
+}
+.orange {
+  background-color: #EAB83E !important;
+}
+.red {
+  background-color: #EA643E !important;
+}
+.statistics {
+  margin-bottom: 50rpx;
+}
+.statistics .big-icon {
+  width: 250rpx;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40rpx;
+}
+.statistics .report-title {
+  display: flex;
+  justify-content: center;
+  margin-top: 20rpx;
+}
+.statistics .report-title .days {
+  font-size: 60rpx;
+  color: #333;
+}
+.statistics .report-title .unit {
+  margin-left: 10rpx;
+  margin-top: 33rpx;
+  color: #333;
+}
+.statistics .sub-title {
+  font-size: 34rpx;
+  color: #333;
+  text-align: center;
+  margin-top: 10rpx;
+}
+.statistics .report {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30rpx;
+}
+.statistics .report .column {
+  flex-grow: 1;
+  flex-shrink: 1;
+  color: #fff;
+  padding-top: 20rpx;
+  padding-bottom: 15rpx;
+}
+.statistics .report .column .column-title {
+  display: block;
+  text-align: center;
+  font-size: 30rpx;
+  margin-bottom: 5rpx;
+}
+.statistics .report .column .number {
+  display: block;
+  text-align: center;
+  font-size: 30rpx;
+}
+

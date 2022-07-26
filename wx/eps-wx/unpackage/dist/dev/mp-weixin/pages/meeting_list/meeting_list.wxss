@@ -1,0 +1,117 @@
+.page {
+  padding: 35rpx 45rpx;
+  position: relative;
+}
+.logo {
+  margin-top: 30rpx;
+  margin-bottom: 45rpx;
+  width: 100%;
+}
+.add {
+  position: absolute;
+  top: 50rpx;
+  display: flex;
+}
+.add .icon {
+  width: 40rpx;
+  margin-right: 10rpx;
+  margin-top: 6rpx;
+}
+.add text {
+  color: #6A5ACD;
+  font-size: 32rpx;
+}
+.list-title {
+  margin-bottom: 35rpx;
+  font-size: 38rpx;
+  font-weight: bold;
+  color: #6A5ACD;
+  border-left: solid 15rpx #6A5ACD;
+  padding-left: 20rpx;
+}
+.item {
+  border: solid #e0e0e0 1rpx;
+  padding: 30rpx;
+  background-color: #f7f9fd;
+  border-radius: 15rpx;
+  margin-bottom: 45rpx;
+}
+.item .header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid #e0e0e0 1rpx;
+  padding-bottom: 20rpx;
+  margin-bottom: 20rpx;
+}
+.item .header .left {
+  display: flex;
+}
+.item .header .left .icon {
+  width: 46rpx;
+  margin-right: 20rpx;
+  margin-top: -5rpx;
+}
+.item .header .left text {
+  font-size: 32rpx;
+  color: #333;
+}
+.item .header .left .blue {
+  color: #6A5ACD;
+}
+.item .header .left .red {
+  color: #ff4234;
+}
+.item .header .right text {
+  font-size: 32rpx;
+  color: #6A5ACD;
+}
+.item .content {
+  position: relative;
+}
+.item .content .title {
+  font-size: 34rpx;
+  color: #333;
+}
+.item .content .attr {
+  display: flex;
+  color: #999;
+  font-size: 30rpx;
+  padding: 15rpx 0;
+}
+.item .content .attr .timer,
+.item .content .attr .creator,
+.item .content .attr .place {
+  margin-right: 35rpx;
+  display: flex;
+}
+.item .content .attr .timer .icon,
+.item .content .attr .creator .icon,
+.item .content .attr .place .icon {
+  width: 36rpx;
+  margin-right: 10rpx;
+  margin-top: 5rpx;
+}
+.item .content .desc {
+  color: #999;
+  font-size: 30rpx;
+  line-height: 1.6;
+}
+.item .content .btn {
+  position: absolute;
+  right: 0rpx;
+  top: 20rpx;
+  background-color: #6A5ACD;
+  color: #fff;
+  width: 140rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+  line-height: 60rpx;
+  font-size: 30rpx;
+}
+.item .content .btn:active {
+  background-color: dodgerblue;
+}
+.item .content .btn::after {
+  border: none;
+}
+
