@@ -80,3 +80,8 @@ eps:
 wx:
   app-id: wx790a007e30c8a49c
   app-secret: 64ba05a839bd06eedab787807c31e441
+
+trtc:
+  appid: 1400714855
+  key: f966a1dd0b4911ece1b36bed2c25643c457eb125a37ca6ea5c1f71007ee559e0
+  expire: 86400

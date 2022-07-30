@@ -22,15 +22,15 @@
 		</view>
 		<view class="list-title">用户信息</view>
 		<uni-list>
-			<uni-list-item title="个人资料" link to=""></uni-list-item>
-			<uni-list-item title="我的考勤" link to="/pages/mine_checkin/mine_checkin"></uni-list-item>
-			<uni-list-item title="罚款记录" link to=""></uni-list-item>
+			<uni-list-item title="个人资料" thumb="../../static/icon-21.png" thumbSize="sm" link to=""></uni-list-item>
+			<uni-list-item title="考勤记录" thumb="../../static/icon-22.png" thumbSize="sm" link to="/pages/mine_checkin/mine_checkin"></uni-list-item>
+			<uni-list-item title="罚款记录" thumb="../../static/icon-23.png" thumbSize="sm" link to=""></uni-list-item>
 		</uni-list>
 		<view class="list-title">系统管理</view>
 		<uni-list>
-			<uni-list-item title="员工管理" v-show="checkPermission(['ROOT','EMPLOYEE:SELECT'])" link to=""></uni-list-item>
-			<uni-list-item title="部门管理" v-show="checkPermission(['ROOT','DEPT:SELECT'])" link to=""></uni-list-item>
-			<uni-list-item title="权限管理" v-show="checkPermission(['ROOT','ROLE:SELECT'])" link to=""></uni-list-item>
+			<uni-list-item title="员工管理" thumb="../../static/icon-24.png" thumbSize="sm" v-show="checkPermission(['ROOT','EMPLOYEE:SELECT'])" link to=""></uni-list-item>
+			<uni-list-item title="部门管理" thumb="../../static/icon-25.png" thumbSize="sm" v-show="checkPermission(['ROOT','DEPT:SELECT'])" link to=""></uni-list-item>
+			<uni-list-item title="权限管理" thumb="../../static/icon-26.png" thumbSize="sm" v-show="checkPermission(['ROOT','ROLE:SELECT'])" link to=""></uni-list-item>
 		</uni-list>
 	</view>
 </template>
