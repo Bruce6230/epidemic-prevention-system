@@ -36,6 +36,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/approval_list/approval_list",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

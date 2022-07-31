@@ -2,8 +2,10 @@ package com.makiyo.controller;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.UUID;
 import cn.hutool.json.JSONUtil;
-import com.makiyo.form.SearchMyMeetingListByPageForm;
+import com.makiyo.exception.EpsException;
+import com.makiyo.form.*;
 import com.makiyo.pojo.TbMeeting;
 import com.makiyo.service.MeetingService;
 import com.makiyo.utils.JwtUtil;
@@ -48,36 +50,37 @@ public class MeetingController {
         return Response.ok().put("result",list);
     }
 
-//    @PostMapping("/insertMeeting")
-//    @ApiOperation("添加会议")
-//    @RequiresPermissions(value = {"ROOT", "MEETING:INSERT"},logical = Logical.OR)
-//    public Response insertMeeting(@Valid @RequestBody InsertMeetingForm form,@RequestHeader("token") String token){
-//        if(form.getType()==2&&(form.getPlace()==null||form.getPlace().length()==0)){
-//            throw new EmosException("线下会议地点不能为空");
-//        }
-//        DateTime d1= DateUtil.parse(form.getDate()+" "+form.getStart()+":00");
-//        DateTime d2= DateUtil.parse(form.getDate()+" "+form.getEnd()+":00");
-//        if(d2.isBeforeOrEquals(d1)){
-//            throw new EmosException("结束时间必须大于开始时间");
-//        }
-//        if(!JSONUtil.isJsonArray(form.getMembers())){
-//            throw new EmosException("members不是JSON数组");
-//        }
-//        TbMeeting entity=new TbMeeting();
-//        entity.setUuid(UUID.randomUUID().toString(true));
-//        entity.setTitle(form.getTitle());
-//        entity.setCreatorId((long)jwtUtil.getUserId(token));
-//        entity.setDate(form.getDate());
-//        entity.setPlace(form.getPlace());
-//        entity.setStart(form.getStart() + ":00");
-//        entity.setEnd(form.getEnd() + ":00");
-//        entity.setType((short)form.getType());
-//        entity.setMembers(form.getMembers());
-//        entity.setDesc(form.getDesc());
-//        entity.setStatus((short)1);
-//        meetingService.insertMeeting(entity);
-//        return Response.ok().put("result","success");
-//    }
+    @PostMapping("/insertMeeting")
+    @ApiOperation("添加会议")
+    @RequiresPermissions(value = {"ROOT", "MEETING:INSERT"},logical = Logical.OR)
+    public Response insertMeeting(@Valid @RequestBody InsertMeetingForm form, @RequestHeader("token") String token){
+        if(form.getType()==2&&(form.getPlace()==null||form.getPlace().length()==0)){
+            throw new EpsException("线下会议地点不能为空");
+        }
+        DateTime d1= DateUtil.parse(form.getDate()+" "+form.getStart()+":00");
+        DateTime d2= DateUtil.parse(form.getDate()+" "+form.getEnd()+":00");
+        if(d2.isBeforeOrEquals(d1)){
+            throw new EpsException("结束时间必须大于开始时间");
+        }
+        if(!JSONUtil.isJsonArray(form.getMembers())){
+            throw new EpsException("members不是JSON数组");
+        }
+        TbMeeting entity=new TbMeeting();
+        entity.setUuid(UUID.randomUUID().toString(true));
+        entity.setTitle(form.getTitle());
+        entity.setCreatorId((long)jwtUtil.getUserId(token));
+        entity.setDate(form.getDate());
+        entity.setPlace(form.getPlace());
+        entity.setStart(form.getStart() + ":00");
+        entity.setEnd(form.getEnd() + ":00");
+        entity.setType((short)form.getType());
+        entity.setMembers(form.getMembers());
+        entity.setDesc(form.getDesc());
+        entity.setStatus((short)1);
+        meetingService.insertMeeting(entity);
+        return Response.ok().put("result","success");
+    }
+
 //    @PostMapping("/searchMeetingById")
 //    @ApiOperation("根据ID查询会议")
 //    @RequiresPermissions(value = {"ROOT", "MEETING:SELECT"}, logical = Logical.OR)
@@ -86,55 +89,56 @@ public class MeetingController {
 //        return Response.ok().put("result",map);
 //    }
 //
-//    @PostMapping("/updateMeetingInfo")
-//    @ApiOperation("更新会议")
-//    @RequiresPermissions(value = {"ROOT", "MEETING:UPDATE"}, logical = Logical.OR)
-//    public Response updateMeetingInfo(@Valid @RequestBody UpdateMeetingInfoForm form){
-//        if(form.getType()==2&&(form.getPlace()==null||form.getPlace().length()==0)){
-//            throw new EmosException("线下会议地点不能为空");
-//        }
-//        DateTime d1= DateUtil.parse(form.getDate()+" "+form.getStart()+":00");
-//        DateTime d2= DateUtil.parse(form.getDate()+" "+form.getEnd()+":00");
-//        if(d2.isBeforeOrEquals(d1)){
-//            throw new EmosException("结束时间必须大于开始时间");
-//        }
-//        if(!JSONUtil.isJsonArray(form.getMembers())){
-//            throw new EmosException("members不是JSON数组");
-//        }
-//        HashMap param=new HashMap();
-//        param.put("title", form.getTitle());
-//        param.put("date", form.getDate());
-//        param.put("place", form.getPlace());
-//        param.put("start", form.getStart() + ":00");
-//        param.put("end", form.getEnd() + ":00");
-//        param.put("type", form.getType());
-//        param.put("members", form.getMembers());
-//        param.put("desc", form.getDesc());
-//        param.put("id", form.getId());
-//        param.put("instanceId", form.getInstanceId());
-//        param.put("status", 1);
-//        meetingService.updateMeetingInfo(param);
-//        return Response.ok().put("result","success");
-//    }
-//    @PostMapping("/deleteMeetingById")
-//    @ApiOperation("根据ID删除会议")
-//    @RequiresPermissions(value = {"ROOT", "MEETING:DELETE"}, logical = Logical.OR)
-//    public Response deleteMeetingById(@Valid @RequestBody DeleteMeetingByIdForm form){
-//        meetingService.deleteMeetingById(form.getId());
-//        return Response.ok().put("result","success");
-//    }
-//
-//    @PostMapping("/recieveNotify")
-//    @ApiOperation("接收工作流通知")
-//    public Response recieveNotify(@Valid @RequestBody RecieveNotifyForm form){
-//        if(form.getResult().equals("同意")){
-//            log.debug(form.getUuid()+"的会议审批通过");
-//        }
-//        else{
-//            log.debug(form.getUuid()+"的会议审批不通过");
-//        }
-//        return Response.ok();
-//    }
+    @PostMapping("/updateMeetingInfo")
+    @ApiOperation("更新会议")
+    @RequiresPermissions(value = {"ROOT", "MEETING:UPDATE"}, logical = Logical.OR)
+    public Response updateMeetingInfo(@Valid @RequestBody UpdateMeetingInfoForm form){
+        if(form.getType()==2&&(form.getPlace()==null||form.getPlace().length()==0)){
+            throw new EpsException("线下会议地点不能为空");
+        }
+        DateTime d1= DateUtil.parse(form.getDate()+" "+form.getStart()+":00");
+        DateTime d2= DateUtil.parse(form.getDate()+" "+form.getEnd()+":00");
+        if(d2.isBeforeOrEquals(d1)){
+            throw new EpsException("结束时间必须大于开始时间");
+        }
+        if(!JSONUtil.isJsonArray(form.getMembers())){
+            throw new EpsException("members不是JSON数组");
+        }
+        HashMap param=new HashMap();
+        param.put("title", form.getTitle());
+        param.put("date", form.getDate());
+        param.put("place", form.getPlace());
+        param.put("start", form.getStart() + ":00");
+        param.put("end", form.getEnd() + ":00");
+        param.put("type", form.getType());
+        param.put("members", form.getMembers());
+        param.put("desc", form.getDesc());
+        param.put("id", form.getId());
+        param.put("instanceId", form.getInstanceId());
+        param.put("status", 1);
+        meetingService.updateMeetingInfo(param);
+        return Response.ok().put("result","success");
+    }
+
+    @PostMapping("/deleteMeetingById")
+    @ApiOperation("根据ID删除会议")
+    @RequiresPermissions(value = {"ROOT", "MEETING:DELETE"}, logical = Logical.OR)
+    public Response deleteMeetingById(@Valid @RequestBody DeleteMeetingByIdForm form){
+        meetingService.deleteMeetingById(form.getId());
+        return Response.ok().put("result","success");
+    }
+
+    @PostMapping("/recieveNotify")
+    @ApiOperation("接收工作流通知")
+    public Response recieveNotify(@Valid @RequestBody RecieveNotifyForm form){
+        if(form.getResult().equals("同意")){
+            log.debug(form.getUuid()+"的会议审批通过");
+        }
+        else{
+            log.debug(form.getUuid()+"的会议审批不通过");
+        }
+        return Response.ok();
+    }
 //
 //    @PostMapping("/searchRoomIdByUUID")
 //    @ApiOperation("查询会议房间RoomID")

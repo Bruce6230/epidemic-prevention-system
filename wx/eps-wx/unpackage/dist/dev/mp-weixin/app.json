@@ -13,7 +13,8 @@
     "pages/message_list/message_list",
     "pages/message/message",
     "pages/meeting_list/meeting_list",
-    "pages/members/members"
+    "pages/members/members",
+    "pages/approval_list/approval_list"
   ],
   "subPackages": [],
   "window": {
@@ -65,6 +66,5 @@
       "desc": "请先选择景点，我们将为您提供精准查找"
     }
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }

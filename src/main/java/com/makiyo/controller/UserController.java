@@ -110,4 +110,17 @@ public class UserController {
         }
         return response;
     }
+
+    @PostMapping("/selectUserPhotoAndName")
+    @ApiOperation("查询用户姓名和头像")
+    @RequiresPermissions(value = {"WORKFLOW:APPROVAL"})
+    public Response selectUserPhotoAndName(@Valid @RequestBody SelectUserPhotoAndNameForm form){
+        if(!JSONUtil.isJsonArray(form.getIds())){
+            throw new EpsException("参数不是JSON数组");
+        }
+        List<Integer> param=JSONUtil.parseArray(form.getIds()).toList(Integer.class);
+        List<HashMap> list=userService.selectUserPhotoAndName(param);
+        return Response.ok().put("result",list);
+    }
+
 }

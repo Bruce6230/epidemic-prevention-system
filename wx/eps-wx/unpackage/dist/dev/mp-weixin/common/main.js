@@ -31,6 +31,8 @@ createApp(app).$mount();
 
 //修改ip
 var BaseUrl = "http://192.168.31.152:8080/epidemic-prevention-system";
+//工作流地址
+var workflow = "http://CentOS的IP:9090/workflow";
 
 _vue.default.prototype.url = {
   register: BaseUrl + "/user/register",
@@ -47,7 +49,16 @@ _vue.default.prototype.url = {
   updateUnreadMessage: BaseUrl + "/message/updateUnreadMessage",
   deleteMessageRefById: BaseUrl + "/message/deleteMessageRefById",
   searchMyMeetingListByPage: BaseUrl + "/meeting/searchMyMeetingListByPage",
-  searchUserGroupByDept: BaseUrl + "/user/searchUserGroupByDept" };
+  searchUserGroupByDept: BaseUrl + "/user/searchUserGroupByDept",
+  insertMeeting: BaseUrl + "/meeting/insertMeeting",
+  updateMeetingInfo: BaseUrl + "/meeting/updateMeetingInfo",
+  deleteMeetingById: BaseUrl + "/meeting/deleteMeetingById",
+  searchUserTaskListByPage: workflow + "/workflow/searchUserTaskListByPage",
+  approvalMeeting: workflow + "/workflow/approvalMeeting",
+  selectUserPhotoAndName: BaseUrl + "/user/selectUserPhotoAndName",
+  genUserSig: BaseUrl + "/user/genUserSig",
+  searchRoomIdByUUID: BaseUrl + "/meeting/searchRoomIdByUUID",
+  searchUserMeetingInMonth: BaseUrl + "/meeting/searchUserMeetingInMonth" };
 
 
 _vue.default.prototype.checkPermission = function (perms) {
@@ -92,6 +103,87 @@ _vue.default.prototype.ajax = function (url, method, data, fun) {
       }
     } });
 
+};
+
+_vue.default.prototype.checkNull = function (data, name) {
+  if (data == null) {
+    uni.showToast({
+      icon: "none",
+      title: name + "不能为空" });
+
+    return true;
+  }
+  return false;
+};
+_vue.default.prototype.checkBlank = function (data, name) {
+  if (data == null || data == "") {
+    uni.showToast({
+      icon: "none",
+      title: name + "不能为空" });
+
+    return true;
+  }
+  return false;
+};
+_vue.default.prototype.checkValidName = function (data, name) {
+  if (data == null || data == "") {
+    uni.showToast({
+      icon: "none",
+      title: name + "不能为空" });
+
+    return true;
+  } else if (!/^[\u4e00-\u9fa5]{2,15}$/.test(data)) {
+    uni.showToast({
+      icon: "none",
+      title: name + "内容不正确" });
+
+    return true;
+  }
+  return false;
+};
+_vue.default.prototype.checkValidTel = function (data, name) {
+  if (data == null || data == "") {
+    uni.showToast({
+      icon: "none",
+      title: name + "不能为空" });
+
+    return true;
+  } else if (!/^1[0-9]{10}$/.test(data)) {
+    uni.showToast({
+      icon: "none",
+      title: name + "内容不正确" });
+
+    return true;
+  }
+  return false;
+};
+_vue.default.prototype.checkValidEmail = function (data, name) {
+  if (data == null || data == "") {
+    uni.showToast({
+      icon: "none",
+      title: name + "不能为空" });
+
+    return true;
+  } else if (!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(data)) {
+    uni.showToast({
+      icon: "none",
+      title: name + "内容不正确" });
+
+    return true;
+  }
+  return false;
+};
+_vue.default.prototype.checkValidStartAndEnd = function (start, end) {
+  var d1 = new Date("2000/01/01 " + start + ":00");
+  var d2 = new Date("2000/01/01 " + end + ":00");
+  if (d2.getTime() <= d1.getTime()) {
+    uni.showToast({
+      icon: "none",
+      title: "结束时间必须大于开始时间" });
+
+    return true;
+  }
+  return false;
 };
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -123,7 +123,16 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+		{
+			"path" : "pages/approval_list/approval_list",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "在线审批",
+				"enablePullDownRefresh": false
+			}
+			
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

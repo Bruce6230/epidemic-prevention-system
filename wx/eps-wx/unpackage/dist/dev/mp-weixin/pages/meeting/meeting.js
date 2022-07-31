@@ -270,8 +270,8 @@ __webpack_require__.r(__webpack_exports__);
         that.end = now.format("hh:mm");
       } else
       if (that.opt == "edit") {
-        that.ajax(that.url.searchMeetingById, "POST", { id: that.id }, function (resp) {
-          var result = resp.data.result;
+        that.ajax(that.url.searchMeetingById, "POST", { id: that.id }, function (response) {
+          var result = response.data.result;
           that.uuid = result.uuid;
           that.title = result.title;
           that.date = result.date;
@@ -292,8 +292,8 @@ __webpack_require__.r(__webpack_exports__);
       currPage.members),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var one = _step.value;
           members.push(Number(one));
         }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
-      that.ajax(that.url.searchMembers, "POST", { members: JSON.stringify(members) }, function (resp) {
-        var result = resp.data.result;
+      that.ajax(that.url.searchMembers, "POST", { members: JSON.stringify(members) }, function (response) {
+        var result = response.data.result;
         that.members = result;
       });
     }
@@ -396,7 +396,7 @@ __webpack_require__.r(__webpack_exports__);
       if (that.opt == "edit") {
         url = that.url.updateMeetingInfo;
       }
-      that.ajax(url, "POST", data, function (resp) {
+      that.ajax(url, "POST", data, function (response) {
         uni.showToast({
           icon: "success",
           title: "保存成功",
@@ -416,7 +416,7 @@ __webpack_require__.r(__webpack_exports__);
       uni.showModal({
         title: "提示信息",
         content: "删除该名参会人员？",
-        success: function success(resp) {
+        success: function success(response) {
           var postion;
           for (var i = 0; i < that.members.length; i++) {
             var one = that.members[i];

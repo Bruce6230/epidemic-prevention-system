@@ -76,6 +76,7 @@ eps:
     system: lin171820@gmail.com
     hr: lin171820@gmail.com
   image-folder: D:/epidemic-prevention-system/images
+  recieveNotify: http://192.168.31.152:5001/epidemic-prevention-system/meeting/recieveNotify
 
 wx:
   app-id: wx790a007e30c8a49c
@@ -85,3 +86,6 @@ trtc:
   appid: 1400714855
   key: f966a1dd0b4911ece1b36bed2c25643c457eb125a37ca6ea5c1f71007ee559e0
   expire: 86400
+
+workflow:
+  url: workflowurl

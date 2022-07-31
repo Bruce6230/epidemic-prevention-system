@@ -106,8 +106,8 @@ export default {
 				that.end=now.format("hh:mm")
 			}
 			else if(that.opt=="edit"){
-				that.ajax(that.url.searchMeetingById,"POST",{id:that.id},function(resp){
-					let result=resp.data.result
+				that.ajax(that.url.searchMeetingById,"POST",{id:that.id},function(response){
+					let result=response.data.result
 					that.uuid = result.uuid;
 					that.title = result.title;
 					that.date = result.date;
@@ -128,8 +128,8 @@ export default {
 			for(let one of currPage.members){
 				members.push(Number(one)) 
 			}
-			that.ajax(that.url.searchMembers,"POST",{members:JSON.stringify(members)},function(resp){
-				let result=resp.data.result
+			that.ajax(that.url.searchMembers,"POST",{members:JSON.stringify(members)},function(response){
+				let result=response.data.result
 				that.members=result
 			})
 		}
@@ -232,7 +232,7 @@ export default {
 			else if(that.opt=="edit"){
 				url=that.url.updateMeetingInfo
 			}
-			that.ajax(url,"POST",data,function(resp){
+			that.ajax(url,"POST",data,function(response){
 				uni.showToast({
 					icon:"success",
 					title:"保存成功",
@@ -252,7 +252,7 @@ export default {
 			uni.showModal({
 				title:"提示信息",
 				content:"删除该名参会人员？",
-				success:function(resp){
+				success:function(response){
 					let postion;
 					for(let i=0;i<that.members.length;i++){
 						let one=that.members[i]

@@ -22,6 +22,8 @@ export function createApp() {
 
 //修改ip
 let BaseUrl = "http://192.168.31.152:8080/epidemic-prevention-system"
+//工作流地址
+let workflow="http://CentOS的IP:9090/workflow"
 
 Vue.prototype.url={
 	register: BaseUrl+"/user/register",
@@ -39,6 +41,15 @@ Vue.prototype.url={
 	deleteMessageRefById: BaseUrl + "/message/deleteMessageRefById",
 	searchMyMeetingListByPage: BaseUrl + "/meeting/searchMyMeetingListByPage",
 	searchUserGroupByDept: BaseUrl + "/user/searchUserGroupByDept",
+	insertMeeting: BaseUrl + "/meeting/insertMeeting",
+	updateMeetingInfo: BaseUrl + "/meeting/updateMeetingInfo",
+	deleteMeetingById:BaseUrl+"/meeting/deleteMeetingById",
+	searchUserTaskListByPage:workflow+"/workflow/searchUserTaskListByPage",
+	approvalMeeting:workflow+"/workflow/approvalMeeting",
+	selectUserPhotoAndName:BaseUrl+"/user/selectUserPhotoAndName",
+	genUserSig: BaseUrl + "/user/genUserSig",
+	searchRoomIdByUUID: BaseUrl + "/meeting/searchRoomIdByUUID",
+	searchUserMeetingInMonth:BaseUrl+"/meeting/searchUserMeetingInMonth"
 }
 
 Vue.prototype.checkPermission = function(perms) {
@@ -83,4 +94,85 @@ Vue.prototype.ajax=function(url , method, data, fun){
 			}
 		}
 	})
+}
+
+Vue.prototype.checkNull = function(data, name) {
+	if (data == null) {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能为空"
+		})
+		return true
+	}
+	return false
+}
+Vue.prototype.checkBlank = function(data, name) {
+	if (data == null || data == "") {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能为空"
+		})
+		return true
+	}
+	return false
+}
+Vue.prototype.checkValidName = function(data, name) {
+	if (data == null || data == "") {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能为空"
+		})
+		return true
+	} else if (!/^[\u4e00-\u9fa5]{2,15}$/.test(data)) {
+		uni.showToast({
+			icon: "none",
+			title: name + "内容不正确"
+		})
+		return true
+	}
+	return false
+}
+Vue.prototype.checkValidTel = function(data, name) {
+	if (data == null || data == "") {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能为空"
+		})
+		return true
+	} else if (!/^1[0-9]{10}$/.test(data)) {
+		uni.showToast({
+			icon: "none",
+			title: name + "内容不正确"
+		})
+		return true
+	}
+	return false
+}
+Vue.prototype.checkValidEmail = function(data, name) {
+	if (data == null || data == "") {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能为空"
+		})
+		return true
+	} else if (!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(data)) {
+		uni.showToast({
+			icon: "none",
+			title: name + "内容不正确"
+		})
+		return true
+	}
+	return false
+}
+Vue.prototype.checkValidStartAndEnd = function(start, end) {
+	let d1 = new Date("2000/01/01 " + start + ":00");
+	let d2 = new Date("2000/01/01 " + end + ":00");
+	if (d2.getTime() <= d1.getTime()) {
+		uni.showToast({
+			icon: "none",
+			title: "结束时间必须大于开始时间"
+		})
+		return true
+	}
+	return false
 }

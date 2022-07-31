@@ -1,0 +1,119 @@
+.page {
+  padding: 35rpx;
+}
+.list {
+  margin-top: 45rpx;
+  margin-bottom: 35rpx;
+}
+.list .item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1rpx #f0f0f0;
+  padding-bottom: 35rpx;
+  margin-bottom: 45rpx;
+}
+.list .item:last-child {
+  border-bottom: none;
+}
+.list .item .left {
+  margin-right: 30rpx;
+  flex-grow: 0;
+}
+.list .item .left .photo {
+  width: 150rpx;
+  border-radius: 10rpx;
+}
+.list .item .left .name {
+  font-size: 30rpx;
+  color: #333;
+  text-align: center;
+  margin-bottom: 5rpx;
+}
+.list .item .left .desc {
+  font-size: 30rpx;
+  color: #999;
+  text-align: center;
+}
+.list .item .center {
+  flex-grow: 1;
+}
+.list .item .center .title {
+  font-size: 34rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+.list .item .center .attr {
+  font-size: 30rpx;
+  color: #999;
+  margin-bottom: 15rpx;
+}
+.list .item .center .attr .result {
+  padding-top: 0;
+  padding-bottom: 3rpx;
+  width: 130rpx;
+  color: #fff;
+  border-radius: 5rpx;
+  display: inline-block;
+  text-align: center;
+  background-color: #666;
+}
+.list .item .center .attr .red {
+  padding-top: 0;
+  padding-bottom: 3rpx;
+  width: 130rpx;
+  color: #fff;
+  border-radius: 5rpx;
+  display: inline-block;
+  text-align: center;
+  background-color: #666;
+  background-color: #e8403a !important;
+}
+.list .item .center .attr .green {
+  padding-top: 0;
+  padding-bottom: 3rpx;
+  width: 130rpx;
+  color: #fff;
+  border-radius: 5rpx;
+  display: inline-block;
+  text-align: center;
+  background-color: #666;
+  background-color: #03ae00 !important;
+}
+.list .item .center .status {
+  font-size: 30rpx;
+  color: #3474ff;
+}
+.list .item .right {
+  flex-grow: 0;
+  margin-left: 35rpx;
+  position: relative;
+}
+.list .item .right .btn {
+  position: absolute;
+  right: 0;
+  top: 0rpx;
+  font-size: 30rpx;
+  width: 160rpx;
+  background-color: #3474FF;
+  color: #fff;
+}
+.list .item .right .btn:active {
+  background-color: dodgerblue;
+}
+.list .item .right .icon {
+  width: 150rpx;
+  height: auto;
+}
+.list .item .right .name {
+  text-align: center;
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 5rpx;
+}
+.list .item .right .desc {
+  text-align: center;
+  font-size: 30rpx;
+  color: #999;
+}
+
