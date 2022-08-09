@@ -95,21 +95,21 @@ public class UserController {
         return Response.ok().put("result",list);
     }
 
-    @PostMapping("/webLogin")
-    @ApiOperation("web端登录系统")
-    public Response webLogin(@Valid @RequestBody WebLoginForm form)
-    {
-        HashMap param = JSONUtil.parse(form).toBean(HashMap.class);
-        Integer userId = userService.webLogin(param);
-        Response response = Response.ok().put("result",userId != null ? true : false);
-        if(userId != null){
-            String token = jwtUtil.createToken(userId);
-            saveCacheToken(token,userId);
-            Set<String> permissions = userService.searchUserPermissions(userId);
-            response.put("permissions",permissions);
-        }
-        return response;
-    }
+//    @PostMapping("/webLogin")
+//    @ApiOperation("web端登录系统")
+//    public Response webLogin(@Valid @RequestBody WebLoginForm form)
+//    {
+//        HashMap param = JSONUtil.parse(form).toBean(HashMap.class);
+//        Integer userId = userService.webLogin(param);
+//        Response response = Response.ok().put("result",userId != null ? true : false);
+//        if(userId != null){
+//            String token = jwtUtil.createToken(userId);
+//            saveCacheToken(token,userId);
+//            Set<String> permissions = userService.searchUserPermissions(userId);
+//            response.put("permissions",permissions);
+//        }
+//        return response;
+//    }
 
     @PostMapping("/selectUserPhotoAndName")
     @ApiOperation("查询用户姓名和头像")
