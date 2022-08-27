@@ -30,7 +30,7 @@ createApp(app).$mount();
 
 
 //修改ip
-var BaseUrl = "http://192.168.3.242:8080/epidemic-prevention-system";
+var BaseUrl = "http://192.168.1.105:8080/epidemic-prevention-system";
 //工作流地址
 var workflow = "http://CentOS的IP:9090/workflow";
 

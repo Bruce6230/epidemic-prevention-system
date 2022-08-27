@@ -192,4 +192,4 @@ def checkin():
     return response
 
 if __name__ == "__main__":
-    app.run(host="192.168.3.242", port=5001, debug=True)
+    app.run(host="192.168.1.105", port=5001, debug=True)

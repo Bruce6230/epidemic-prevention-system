@@ -21,7 +21,7 @@ export function createApp() {
 // #endif
 
 //修改ip
-let BaseUrl = "http://192.168.3.242:8080/epidemic-prevention-system"
+let BaseUrl = "http://192.168.1.105:8080/epidemic-prevention-system"
 //工作流地址
 let workflow="http://CentOS的IP:9090/workflow"
 

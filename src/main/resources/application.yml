@@ -70,21 +70,21 @@ eps:
     expire: 5 #过期时间
     cache-expire: 10 #缓存过期时间
   face:
-    createFaceModelUrl: http://192.168.3.242:5001/create_face_model
-    checkinUrl: http://192.168.3.242:5001/checkin
+    createFaceModelUrl: http://192.168.1.105:5001/create_face_model
+    checkinUrl: http://192.168.1.105:5001/checkin
   email:
     system: lin171820@gmail.com
     hr: lin171820@gmail.com
   image-folder: D:/epidemic-prevention-system/images
-  recieveNotify: http://192.168.3.244:5001/epidemic-prevention-system/meeting/recieveNotify
+  recieveNotify: http://192.168.1.105:5001/epidemic-prevention-system/meeting/recieveNotify
 
 wx:
   app-id: wx790a007e30c8a49c
   app-secret: 64ba05a839bd06eedab787807c31e441
 
 trtc:
-  appid: 1400714855
-  key: f966a1dd0b4911ece1b36bed2c25643c457eb125a37ca6ea5c1f71007ee559e0
+  appid: 1400726261
+  key: 5f4361c517fd085ef94681dd8cbb05e226129165902bec6cf7ae30d7bfd72b29
   expire: 86400
 
 workflow:
