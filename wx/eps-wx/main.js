@@ -21,9 +21,9 @@ export function createApp() {
 // #endif
 
 //修改ip
-let BaseUrl = "http://192.168.1.111:8080/epidemic-prevention-system"
+let BaseUrl = "http://192.168.1.107:8080/epidemic-prevention-system"
 //工作流地址
-let workflow="http://CentOS的IP:9090/workflow"
+let workflow="http://192.168.1.107:9090/workflow"
 
 Vue.prototype.url={
 	register: BaseUrl+"/user/register",

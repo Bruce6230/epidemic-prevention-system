@@ -70,13 +70,13 @@ eps:
     expire: 5 #过期时间
     cache-expire: 10 #缓存过期时间
   face:
-    createFaceModelUrl: http://192.168.1.105:5001/create_face_model
-    checkinUrl: http://192.168.1.105:5001/checkin
+    createFaceModelUrl: http://192.168.1.107:5001/create_face_model
+    checkinUrl: http://192.168.1.107:5001/checkin
   email:
     system: lin171820@gmail.com
     hr: lin171820@gmail.com
   image-folder: D:/epidemic-prevention-system/images
-  recieveNotify: http://192.168.1.105:5001/epidemic-prevention-system/meeting/recieveNotify
+  recieveNotify: http://192.168.1.107:5001/epidemic-prevention-system/meeting/recieveNotify
 
 wx:
   app-id: wx790a007e30c8a49c
@@ -88,4 +88,4 @@ trtc:
   expire: 86400
 
 workflow:
-  url: workflow
+  url: http://192.168.1.107:9090/emos-workflow
