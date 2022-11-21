@@ -30,9 +30,9 @@ createApp(app).$mount();
 
 
 //修改ip
-var BaseUrl = "http://192.168.1.107:8080/epidemic-prevention-system";
+var BaseUrl = "http://192.168.137.128:8080/epidemic-prevention-system";
 //工作流地址
-var workflow = "http://192.168.1.107:9090/workflow";
+var workflow = "http://192.168.137.128:9090/emos-workflow";
 
 _vue.default.prototype.url = {
   register: BaseUrl + "/user/register",

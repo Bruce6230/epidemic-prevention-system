@@ -39,8 +39,6 @@ public interface TbUserDao {
 
     public ArrayList<HashMap> searchMembers(List param);
 
-    public Integer webLogin(HashMap param);
-
     public HashMap searchUserInfo(int userId);
 
     public int searchDeptManagerId(int id);

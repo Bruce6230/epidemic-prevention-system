@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Makiyo
@@ -164,6 +165,27 @@ public class MeetingServiceImpl implements MeetingService {
             log.error("删除工作流失败");
             throw new EpsException("删除工作流失败");
         }
+    }
+
+    @Override
+    public HashMap searchMeetingById(int id) {
+        HashMap map = tbMeetingDao.searchMeetingById(id);
+        ArrayList<HashMap> list = tbMeetingDao.searchMeetingMembers(id);
+        map.put("members",list);
+        return map;
+    }
+
+    @Override
+    public Long searchRoomIdByUUID(String uuid) {
+        Object temp=redisTemplate.opsForValue().get(uuid);
+        long roomId=Long.parseLong(temp.toString());
+        return roomId;
+    }
+
+    @Override
+    public List<String> searchUserMeetingInMonth(HashMap param) {
+        List<String> list=tbMeetingDao.searchUserMeetingInMonth(param);
+        return list;
     }
 
 }

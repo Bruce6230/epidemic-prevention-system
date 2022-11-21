@@ -4,6 +4,7 @@ import com.makiyo.pojo.TbMeeting;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Makiyo
@@ -17,4 +18,10 @@ public interface MeetingService {
     public void updateMeetingInfo(HashMap param);
 
     public void deleteMeetingById(int id);
+
+    public HashMap searchMeetingById(int id);
+
+    public Long searchRoomIdByUUID(String uuid);
+
+    public List<String> searchUserMeetingInMonth(HashMap param);
 }

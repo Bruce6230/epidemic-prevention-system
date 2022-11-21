@@ -284,13 +284,6 @@
       #{one}
     </foreach>
   </select>
-<!--  <select id="webLogin" parameterType="HashMap" resultType="Integer">-->
-<!--    select id-->
-<!--    from tb_user-->
-<!--    where username = #{username}-->
-<!--        and password = HEX(AES_ENCRYPT(#{password},#{username}))-->
-<!--    limit 1;-->
-<!--  </select>-->
   <select id="searchUserInfo" parameterType="int" resultType="HashMap">
     SELECT
       u.open_id AS openId,

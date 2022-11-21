@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Makiyo
@@ -81,14 +82,14 @@ public class MeetingController {
         return Response.ok().put("result","success");
     }
 
-//    @PostMapping("/searchMeetingById")
-//    @ApiOperation("根据ID查询会议")
-//    @RequiresPermissions(value = {"ROOT", "MEETING:SELECT"}, logical = Logical.OR)
-//    public Response searchMeetingById(@Valid @RequestBody SearchMeetingByIdFrom form){
-//        HashMap map=meetingService.searchMeetingById(form.getId());
-//        return Response.ok().put("result",map);
-//    }
-//
+    @PostMapping("/searchMeetingById")
+    @ApiOperation("根据ID查询会议")
+    @RequiresPermissions(value = {"ROOT", "MEETING:SELECT"}, logical = Logical.OR)
+    public Response searchMeetingById(@Valid @RequestBody SearchMeetingByIdFrom form){
+        HashMap map=meetingService.searchMeetingById(form.getId());
+        return Response.ok().put("result",map);
+    }
+
     @PostMapping("/updateMeetingInfo")
     @ApiOperation("更新会议")
     @RequiresPermissions(value = {"ROOT", "MEETING:UPDATE"}, logical = Logical.OR)
@@ -139,22 +140,22 @@ public class MeetingController {
         }
         return Response.ok();
     }
-//
-//    @PostMapping("/searchRoomIdByUUID")
-//    @ApiOperation("查询会议房间RoomID")
-//    public Response searchRoomIdByUUID(@Valid @RequestBody SearchRoomIdByUUIDForm form){
-//        long roomId=meetingService.searchRoomIdByUUID(form.getUuid());
-//        return Response.ok().put("result",roomId);
-//    }
-//
-//    @PostMapping("/searchUserMeetingInMonth")
-//    @ApiOperation("查询某月用户的会议日期列表")
-//    public Response searchUserMeetingInMonth(@Valid @RequestBody SearchUserMeetingInMonthForm form,@RequestHeader("token") String token){
-//        int userId=jwtUtil.getUserId(token);
-//        HashMap param=new HashMap();
-//        param.put("userId",userId);
-//        param.put("express",form.getYear()+"/"+form.getMonth());
-//        List<String> list=meetingService.searchUserMeetingInMonth(param);
-//        return R.ok().put("result",list);
-//    }
+
+    @PostMapping("/searchRoomIdByUUID")
+    @ApiOperation("查询会议房间RoomID")
+    public Response searchRoomIdByUUID(@Valid @RequestBody SearchRoomIdByUUIDForm form){
+        long roomId=meetingService.searchRoomIdByUUID(form.getUuid());
+        return Response.ok().put("result",roomId);
+    }
+
+    @PostMapping("/searchUserMeetingInMonth")
+    @ApiOperation("查询某月用户的会议日期列表")
+    public Response searchUserMeetingInMonth(@Valid @RequestBody SearchUserMeetingInMonthForm form,@RequestHeader("token") String token){
+        int userId=jwtUtil.getUserId(token);
+        HashMap param=new HashMap();
+        param.put("userId",userId);
+        param.put("express",form.getYear()+"/"+form.getMonth());
+        List<String> list=meetingService.searchUserMeetingInMonth(param);
+        return Response.ok().put("result",list);
+    }
 }

@@ -154,15 +154,15 @@ public class UserServiceImpl implements UserService {
         return list;
     }
 
-//    @Override
-//    public Integer webLogin(HashMap param) {
-//        Integer userId = userDao.webLogin(param);
-//        return userId;
-//    }
-
     @Override
     public List<HashMap> selectUserPhotoAndName(List param) {
         List<HashMap> list=userDao.selectUserPhotoAndName(param);
         return list;
+    }
+
+    @Override
+    public String searchMemberEmail(int id) {
+        String email = userDao.searchMemberEmail(id);
+        return email;
     }
 }

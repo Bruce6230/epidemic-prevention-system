@@ -4,6 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.makiyo.exception.EpsException;
 import com.makiyo.form.*;
 import com.makiyo.service.UserService;
+import com.makiyo.tencent.TLSSigAPIv2;
 import com.makiyo.utils.JwtUtil;
 import com.makiyo.utils.Response;
 import io.swagger.annotations.Api;
@@ -41,6 +42,15 @@ public class UserController {
 
     @Value("${eps.jwt.cache-expire}")
     private int cacheExpire;
+
+    @Value("${trtc.appid}")
+    private Integer appid;
+
+    @Value("${trtc.key}")
+    private String key;
+
+    @Value("${trtc.expire}")
+    private Integer expire;
 
     @PostMapping("/register")
     @ApiOperation("注册用户")
@@ -95,22 +105,6 @@ public class UserController {
         return Response.ok().put("result",list);
     }
 
-//    @PostMapping("/webLogin")
-//    @ApiOperation("web端登录系统")
-//    public Response webLogin(@Valid @RequestBody WebLoginForm form)
-//    {
-//        HashMap param = JSONUtil.parse(form).toBean(HashMap.class);
-//        Integer userId = userService.webLogin(param);
-//        Response response = Response.ok().put("result",userId != null ? true : false);
-//        if(userId != null){
-//            String token = jwtUtil.createToken(userId);
-//            saveCacheToken(token,userId);
-//            Set<String> permissions = userService.searchUserPermissions(userId);
-//            response.put("permissions",permissions);
-//        }
-//        return response;
-//    }
-
     @PostMapping("/selectUserPhotoAndName")
     @ApiOperation("查询用户姓名和头像")
     @RequiresPermissions(value = {"WORKFLOW:APPROVAL"})
@@ -121,6 +115,16 @@ public class UserController {
         List<Integer> param=JSONUtil.parseArray(form.getIds()).toList(Integer.class);
         List<HashMap> list=userService.selectUserPhotoAndName(param);
         return Response.ok().put("result",list);
+    }
+
+    @GetMapping("/genUserSig")
+    @ApiOperation("生成用户签名")
+    public Response genUserSig(@RequestHeader("token") String token){
+        int id=jwtUtil.getUserId(token);
+        String email=userService.searchMemberEmail(id);
+        TLSSigAPIv2 api = new TLSSigAPIv2(appid,key);
+        String userSig=api.genUserSig(email,expire);
+        return Response.ok().put("userSig",userSig).put("email",email);
     }
 
 }
